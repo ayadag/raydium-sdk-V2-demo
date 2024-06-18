@@ -1,5 +1,14 @@
-import { RAYMint, USDCMint, OPEN_BOOK_PROGRAM, DEVNET_PROGRAM_ID, WSOLMint } from '@raydium-io/raydium-sdk-v2'
-import { initSdk, txVersion } from '../config'
+// import { RAYMint, USDCMint, OPEN_BOOK_PROGRAM, DEVNET_PROGRAM_ID, WSOLMint } from '@raydium-io/raydium-sdk-v2'
+import {
+  DEVNET_PROGRAM_ID,
+  WSOLMint,
+} from '@raydium-io/raydium-sdk-v2';
+import { PublicKey } from '@solana/web3.js';
+
+import {
+  initSdk,
+  txVersion,
+} from '../config';
 
 export const createMarket = async () => {
   const raydium = await initSdk()
@@ -9,17 +18,19 @@ export const createMarket = async () => {
 
   const { execute, extInfo, transactions } = await raydium.marketV2.create({
     baseInfo: {
-      mint: RAYMint,
-      decimals: 6,
-    },
-    quoteInfo: {
-      mint: USDCMint,
+      // mint: RAYMint,
+      mint: new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'),
       decimals: 9,
     },
-    lotSize: 1,
-    tickSize: 0.01,
-    dexProgramId: OPEN_BOOK_PROGRAM,
-    // dexProgramId: DEVNET_PROGRAM_ID.OPENBOOK_MARKET, // devnet
+    quoteInfo: {
+      // mint: USDCMint,
+      mint: WSOLMint,
+      decimals: 9,
+    },
+    lotSize: 0.001,
+    tickSize: 0.001,
+    // dexProgramId: OPEN_BOOK_PROGRAM, //mainnet
+    dexProgramId: DEVNET_PROGRAM_ID.OPENBOOK_MARKET, // devnet
     txVersion,
     // optional: set up priority fee here
     // computeBudgetConfig: {
@@ -48,4 +59,4 @@ export const createMarket = async () => {
 }
 
 /** uncomment code below to execute */
-// createMarket()
+createMarket()
