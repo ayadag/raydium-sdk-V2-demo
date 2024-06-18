@@ -59,4 +59,4 @@ export const createMarket = async () => {
 }
 
 /** uncomment code below to execute */
-createMarket()
+// createMarket()
