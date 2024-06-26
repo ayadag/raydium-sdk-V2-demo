@@ -1,15 +1,20 @@
-import { CREATE_CPMM_POOL_PROGRAM, CREATE_CPMM_POOL_FEE_ACC, DEVNET_PROGRAM_ID } from '@raydium-io/raydium-sdk-v2'
-import BN from 'bn.js'
-import { initSdk, txVersion } from '../config'
+import BN from 'bn.js';
+
+import { PublicKey } from '@solana/web3.js';
+
+import {
+  initSdk,
+  txVersion,
+} from '../config';
 
 export const createPool = async () => {
   const raydium = await initSdk({ loadToken: true })
 
   // check token list here: https://api-v3.raydium.io/mint/list
   // RAY
-  const mintA = await raydium.token.getTokenInfo('4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R')
+  const mintA = await raydium.token.getTokenInfo('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')
   // USDC
-  const mintB = await raydium.token.getTokenInfo('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
+  const mintB = await raydium.token.getTokenInfo('So11111111111111111111111111111111111111112')
 
   /**
    * you also can provide mint info directly like below, then don't have to call token info api
@@ -21,12 +26,15 @@ export const createPool = async () => {
    */
 
   const { execute, extInfo } = await raydium.cpmm.createPool({
-    programId: CREATE_CPMM_POOL_PROGRAM, // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
-    poolFeeAccount: CREATE_CPMM_POOL_FEE_ACC, // devnet: CREATE_CPMM_POOL_FEE_ACC.CREATE_CPMM_POOL_PROGRAM
+    // programId: CREATE_CPMM_POOL_PROGRAM, // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
+    // poolFeeAccount: CREATE_CPMM_POOL_FEE_ACC, // devnet: CREATE_CPMM_POOL_FEE_ACC.CREATE_CPMM_POOL_PROGRAM
+    programId: new PublicKey('y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe'), // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
+    poolFeeAccount: new PublicKey('HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
+    // poolFeeAccount: new PublicKey('G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2'), // Ayad you shold change that!
     mintA,
     mintB,
-    mintAAmount: new BN(100),
-    mintBAmount: new BN(100),
+    mintAAmount: new BN(1),
+    mintBAmount: new BN(1),
     startTime: new BN(0),
     associatedOnly: false,
     ownerInfo: {
@@ -54,4 +62,4 @@ export const createPool = async () => {
 }
 
 /** uncomment code below to execute */
-// createPool()
+createPool();
