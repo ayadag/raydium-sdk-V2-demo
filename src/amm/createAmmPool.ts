@@ -93,4 +93,4 @@ export const createAmmPool = async () => {
 }
 
 /** uncomment code below to execute */
-createAmmPool()
+// createAmmPool()
