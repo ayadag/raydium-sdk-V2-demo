@@ -4,6 +4,7 @@ import { PublicKey } from '@solana/web3.js';
 
 import {
   initSdk,
+  owner,
   txVersion,
 } from '../config';
 
@@ -33,11 +34,12 @@ export const createPool = async () => {
     // poolFeeAccount: new PublicKey('G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2'), // Ayad you shold change that!
     mintA,
     mintB,
-    mintAAmount: new BN(1),
-    mintBAmount: new BN(1),
+    mintAAmount: new BN(100),
+    mintBAmount: new BN(100),
     startTime: new BN(0),
     associatedOnly: false,
     ownerInfo: {
+      feePayer: owner.publicKey, //ayad
       useSOLBalance: true,
     },
     txVersion,
