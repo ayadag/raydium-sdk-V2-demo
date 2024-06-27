@@ -1,4 +1,4 @@
-import * as anchor from '@coral-xyz/anchor';
+// import * as anchor from '@coral-xyz/anchor';
 import {
   BN,
   Program,
@@ -69,7 +69,8 @@ async function createPoolWithoutFee() {
     const { configAddress, token0, token0Program, token1, token1Program } =
       await setupInitializeTest(
         program,
-        anchor.getProvider().connection,
+        // anchor.getProvider().connection,
+        connection,
         owner,
         {
           config_index: 0,
@@ -98,7 +99,8 @@ async function createPoolWithoutFee() {
     );
     console.log('poolAddress: ',poolAddress)  //ayad
     let vault0 = await getAccount(
-        anchor.getProvider().connection,
+        // anchor.getProvider().connection,
+        connection,
         poolState.token0Vault,
         "processed",
         poolState.token0Program
@@ -107,7 +109,8 @@ async function createPoolWithoutFee() {
       console.log(vault0.amount.toString(), initAmount0.toString()); //ayad
 
       let vault1 = await getAccount(
-        anchor.getProvider().connection,
+        // anchor.getProvider().connection,
+        connection,
         poolState.token1Vault,
         "processed",
         poolState.token1Program
@@ -122,7 +125,8 @@ async function createPoolWithFee() {
     const { configAddress, token0, token0Program, token1, token1Program } =
       await setupInitializeTest(
         program,
-        anchor.getProvider().connection,
+        // anchor.getProvider().connection,
+        connection,
         owner,
         {
           config_index: 1,
@@ -151,7 +155,8 @@ async function createPoolWithFee() {
     );
     console.log('poolAddress: ',poolAddress)  //ayad
     let vault0 = await getAccount(
-      anchor.getProvider().connection,
+      // anchor.getProvider().connection,
+      connection,
       poolState.token0Vault,
       "processed",
       poolState.token0Program
@@ -160,7 +165,8 @@ async function createPoolWithFee() {
     console.log(vault0.amount.toString(), initAmount0.toString()) //ayad
 
     let vault1 = await getAccount(
-      anchor.getProvider().connection,
+      // anchor.getProvider().connection,
+      connection,
       poolState.token1Vault,
       "processed",
       poolState.token1Program
@@ -177,7 +183,8 @@ async function createPoolWithToken2022MintHasTransferFee() {
     const { configAddress, token0, token0Program, token1, token1Program } =
       await setupInitializeTest(
         program,
-        anchor.getProvider().connection,
+        // anchor.getProvider().connection,
+        connection,
         owner,
         {
           config_index: 1,
@@ -205,7 +212,8 @@ async function createPoolWithToken2022MintHasTransferFee() {
     );
     console.log('poolAddress: ',poolAddress) //ayad
     let vault0 = await getAccount(
-      anchor.getProvider().connection,
+      // anchor.getProvider().connection,
+      connection,
       poolState.token0Vault,
       "processed",
       poolState.token0Program
@@ -226,7 +234,8 @@ async function createPoolWithToken2022MintHasTransferFee() {
     }
 
     let vault1 = await getAccount(
-      anchor.getProvider().connection,
+      // anchor.getProvider().connection,
+      connection,
       poolState.token1Vault,
       "processed",
       poolState.token1Program
