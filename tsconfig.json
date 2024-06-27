@@ -7,9 +7,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "resolveJsonModule": true,
   },
   "exclude": [
     "otherCode"
-  ]
+  ],
 }

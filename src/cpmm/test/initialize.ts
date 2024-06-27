@@ -7,26 +7,65 @@ import {
   getAccount,
   TOKEN_PROGRAM_ID,
 } from '@solana/spl-token';
+import {
+  clusterApiUrl,
+  Connection,
+} from '@solana/web3.js';
 
+// import NodeWallet from "@project-serum/anchor/dist/cjs/nodewallet";
+import { owner } from '../../config';
 import {
   calculateFee,
   initialize,
   setupInitializeTest,
 } from './utils';
-import { RaydiumCpSwap } from './utils/types/raydium_cp_swap';
+import {
+  IDL,
+  RaydiumCpSwap,
+} from './utils/types/raydium_cp_swap';
 
-anchor.setProvider(anchor.AnchorProvider.env());
-  const owner = anchor.Wallet.local().payer;
-  console.log("owner: ", owner.publicKey.toString());
+// import IDL from './idl/raydium_cp_swap.json';
 
-  const program = anchor.workspace.RaydiumCpSwap as Program<RaydiumCpSwap>;
+// anchor.setProvider(anchor.AnchorProvider.env());
+// const owner = anchor.Wallet.local().payer;
+// console.log("owner: ", owner.publicKey.toString());
+// const program = anchor.workspace.RaydiumCpSwap as Program<RaydiumCpSwap>;
+///ayad///
+// const connection = new anchor.web3.Connection(config.rpcUrl);
+// const provider = await getProvider(wallet, connection);
+// anchor.setProvider(provider);
 
-  const confirmOptions = {
+// anchor.web3.Connection = new anchor.web3.Connection('https://api.devnet.solana.com/');
+
+let connection = new Connection(clusterApiUrl("devnet"));
+// let wallet = new NodeWallet(owner);
+// const provider = new anchor.AnchorProvider(connection, wallet, {
+//   commitment: "processed",
+// });
+// let provider = await anchor.getProvider(wallet, connection);
+const programId = 'y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe';
+const program = new Program<RaydiumCpSwap>(IDL, programId, { connection });
+
+const confirmOptions = {
     skipPreflight: true,
-  };
+};
 
 async function createPoolWithoutFee() {
-    console.log('start createPoolWithoutFee()');
+    console.log('start createPoolWithoutFee()'); //ayad
+
+    // const connection = new anchor.web3.Connection('https://api.devnet.solana.com/'); //ayad
+    // const provider = await anchor.getProvider(wallet, connection); //ayad
+    // const provider = await anchor.getProvider().connection; //ayad
+    // const opts = new anchor.web3.ConfirmOptions
+
+    // const provider = new AnchorProvider(connection, owner, {
+    //   commitment: "max",
+    //   preflightCommitment: "max",
+    //   skipPreflight: false
+    // });
+
+    // anchor.setProvider(provider); //ayad
+
     const { configAddress, token0, token0Program, token1, token1Program } =
       await setupInitializeTest(
         program,
