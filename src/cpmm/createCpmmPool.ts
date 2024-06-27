@@ -34,8 +34,8 @@ export const createPool = async () => {
     // poolFeeAccount: new PublicKey('G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2'), // Ayad you shold change that!
     mintA,
     mintB,
-    mintAAmount: new BN(100),
-    mintBAmount: new BN(100),
+    mintAAmount: new BN(1),
+    mintBAmount: new BN(1),
     startTime: new BN(0),
     associatedOnly: false,
     ownerInfo: {

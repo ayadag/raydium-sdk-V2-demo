@@ -51,4 +51,29 @@ async function createAConfig0() {
     );
     console.log('configAddress: ',configAddress)
 }
-createAConfig0();
+
+async function createAConfig1() {
+  const config: config = {
+    config_index: 1,
+    tradeFeeRate: new BN(10),
+    protocolFeeRate: new BN(1000),
+    fundFeeRate: new BN(25000),
+    create_fee: new BN(100000000),
+  }
+  const configAddress = await createAmmConfig(
+      program,
+      connection,
+      owner,
+      config.config_index,
+      config.tradeFeeRate,
+      config.protocolFeeRate,
+      config.fundFeeRate,
+      config.create_fee,
+      confirmOptions
+  );
+  console.log('configAddress: ',configAddress)
+}
+
+
+// createAConfig0();
+createAConfig1();
