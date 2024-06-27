@@ -121,7 +121,7 @@ export async function setupDepositTest(
         transferFeeConfig
       );
 
-    if (tokenProgramRequired != undefined && token0 != undefined && token1 != undefined) {
+    if (tokenProgramRequired != undefined && token0 != undefined && token1 != undefined && token0Program != undefined && token1Program != undefined) {
       if (
         token0Program.equals(tokenProgramRequired.token0Program) &&
         token1Program.equals(tokenProgramRequired.token1Program)
@@ -138,7 +138,7 @@ export async function setupDepositTest(
           initAmount
         );
       }
-    } else if (token0 != undefined && token1 != undefined ) {
+    } else if (token0 != undefined && token1 != undefined && token0Program != undefined && token1Program != undefined) {
       return await initialize(
         program,
         owner,
@@ -192,7 +192,7 @@ export async function setupSwapTest(
     );
 
     //////////ayad
-  if(token0 != undefined && token1 != undefined){
+  if(token0 != undefined && token1 != undefined && token0Program != undefined && token1Program != undefined){
 
   const { poolAddress, poolState } = await initialize(
     program,
