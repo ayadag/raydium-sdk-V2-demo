@@ -208,3 +208,7 @@ async function createPoolWithToken2022MintHasTransferFee() {
     }
     }
 }
+
+createPoolWithoutFee();
+createPoolWithFee();
+createPoolWithToken2022MintHasTransferFee();
