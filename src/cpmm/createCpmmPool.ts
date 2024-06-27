@@ -13,9 +13,9 @@ export const createPool = async () => {
 
   // check token list here: https://api-v3.raydium.io/mint/list
   // RAY
-  const mintA = await raydium.token.getTokenInfo('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')
+  // const mintA = await raydium.token.getTokenInfo('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')
   // USDC
-  const mintB = await raydium.token.getTokenInfo('So11111111111111111111111111111111111111112')
+  // const mintB = await raydium.token.getTokenInfo('So11111111111111111111111111111111111111112')
 
   /**
    * you also can provide mint info directly like below, then don't have to call token info api
@@ -25,6 +25,16 @@ export const createPool = async () => {
       decimals: 6,
     } 
    */
+  const mintA = {
+    address: 'So11111111111111111111111111111111111111112',
+    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    decimals: 9,
+  } 
+  const mintB = {
+    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    decimals: 9,
+  } 
 
   const { execute, extInfo } = await raydium.cpmm.createPool({
     // programId: CREATE_CPMM_POOL_PROGRAM, // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM

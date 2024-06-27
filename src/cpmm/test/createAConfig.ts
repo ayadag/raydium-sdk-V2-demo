@@ -74,6 +74,5 @@ async function createAConfig1() {
   console.log('configAddress: ',configAddress)
 }
 
-
 // createAConfig0();
 createAConfig1();
