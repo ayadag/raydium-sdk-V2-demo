@@ -13,6 +13,7 @@ import {
 } from '@solana/web3.js';
 
 // import NodeWallet from "@project-serum/anchor/dist/cjs/nodewallet";
+// import { owner as own } from '../../config';
 import { owner } from '../../config';
 import {
   calculateFee,
@@ -24,6 +25,7 @@ import {
   RaydiumCpSwap,
 } from './utils/types/raydium_cp_swap';
 
+// const wallet = owner as anchor.Wallet
 // import IDL from './idl/raydium_cp_swap.json';
 
 // anchor.setProvider(anchor.AnchorProvider.env());
@@ -37,8 +39,8 @@ import {
 
 // anchor.web3.Connection = new anchor.web3.Connection('https://api.devnet.solana.com/');
 
-let connection = new Connection(clusterApiUrl("devnet"));
-// let wallet = new NodeWallet(owner);
+const connection = new Connection(clusterApiUrl("devnet"));
+// let owner = new NodeWallet(own);
 // const provider = new anchor.AnchorProvider(connection, wallet, {
 //   commitment: "processed",
 // });
@@ -82,6 +84,7 @@ async function createPoolWithoutFee() {
         { transferFeeBasisPoints: 0, MaxFee: 0 },
         confirmOptions
     );
+    console.log('configAddress: ',configAddress) //ayad
 
     if(token0 && token1 && token0Program && token1Program) {  //ayad
     const initAmount0 = new BN(10000000000);
@@ -258,5 +261,5 @@ async function createPoolWithToken2022MintHasTransferFee() {
 }
 
 createPoolWithoutFee();
-createPoolWithFee();
-createPoolWithToken2022MintHasTransferFee();
+// createPoolWithFee();
+// createPoolWithToken2022MintHasTransferFee();
