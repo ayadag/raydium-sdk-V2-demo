@@ -10,7 +10,6 @@ import {
   TOKEN_PROGRAM_ID,
 } from '@solana/spl-token';
 import {
-  clusterApiUrl,
   Connection,
   Keypair,
 } from '@solana/web3.js';
@@ -19,7 +18,8 @@ export const owner: Keypair = Keypair.fromSecretKey(Uint8Array.from([179,3,16,89
 // export const owner: Keypair = Keypair.fromSecretKey(Uint8Array.from(bs58.decode("43EeRipwq7QZurfASn7CnYuJ14pVaCEv7KWav9vknt1bFR6qspYXC2DbaC2gGydrVx4TFtWfyCFkEaLLLMB2bZoT")))
 
 // export const connection = new Connection('https://api.devnet.solana.com') //<YOUR_RPC_URL>
-export const connection = new Connection(clusterApiUrl('devnet')) //<YOUR_RPC_URL>
+// export const connection = new Connection(clusterApiUrl('devnet')) //<YOUR_RPC_URL>
+export const connection = new Connection('https://boldest-necessary-telescope.solana-devnet.quiknode.pro/d84334700a69839dc8ef8f3f17f82dc0541ed9df/')//https://boldest-necessary-telescope.solana-devnet.quiknode.pro/d84334700a69839dc8ef8f3f17f82dc0541ed9df/
 export const txVersion = TxVersion.V0 // or TxVersion.LEGACY
 
 let raydium: Raydium | undefined

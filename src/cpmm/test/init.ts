@@ -5,13 +5,12 @@ import {
   setProvider,
 } from '@coral-xyz/anchor';
 import NodeWallet from '@coral-xyz/anchor/dist/cjs/nodewallet';
-import {
-  clusterApiUrl,
-  Connection,
-  PublicKey,
-} from '@solana/web3.js';
+import { PublicKey } from '@solana/web3.js';
 
-import { owner as own } from '../../config';
+import {
+  connection,
+  owner as own,
+} from '../../config';
 // import { initialize } from './utils';
 import { initialize2 } from './utils';
 import {
@@ -20,7 +19,7 @@ import {
 } from './utils/types/raydium_cp_swap';
 
 // const owner = own;
-const connection = new Connection(clusterApiUrl("devnet"));
+// const connection = new Connection(clusterApiUrl("devnet"));
 // const programId = 'y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe';
 // const program = new Program<RaydiumCpSwap>(IDL, programId, { connection });
 
@@ -51,7 +50,7 @@ const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
 
 const initAmount: { initAmount0: BN; initAmount1: BN } = {
     initAmount0: new BN(1),
-    initAmount1: new BN(20),
+    initAmount1: new BN(2),
 }
 
 async function init() {
