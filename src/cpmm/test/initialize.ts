@@ -50,6 +50,7 @@ const program = new Program<RaydiumCpSwap>(IDL, programId, { connection });
 
 const confirmOptions = {
     skipPreflight: true,
+    // skipPreflight: false,
 };
 
 async function createPoolWithoutFee() {

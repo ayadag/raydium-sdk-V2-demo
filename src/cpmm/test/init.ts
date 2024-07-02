@@ -5,14 +5,21 @@ import {
   setProvider,
 } from '@coral-xyz/anchor';
 import NodeWallet from '@coral-xyz/anchor/dist/cjs/nodewallet';
-import { PublicKey } from '@solana/web3.js';
+import {
+  Keypair,
+  PublicKey,
+} from '@solana/web3.js';
 
 import {
   connection,
   owner as own,
 } from '../../config';
 // import { initialize } from './utils';
-import { initialize2 } from './utils';
+import {
+  createTokenMintAndAssociatedTokenAccount2,
+  initialize2,
+  setupInitializeTest2,
+} from './utils';
 import {
   IDL,
   RaydiumCpSwap,
@@ -53,6 +60,41 @@ const initAmount: { initAmount0: BN; initAmount1: BN } = {
     initAmount1: new BN(2),
 }
 
+async function preSetInit() {
+  const transferFeeConfig: { transferFeeBasisPoints: number; MaxFee: number } = {
+    transferFeeBasisPoints: 0,
+    MaxFee: 0,
+  }
+  const [{ token0, token0Program }, { token1, token1Program }] =
+      await createTokenMintAndAssociatedTokenAccount2(
+        connection,
+        owner,
+        new Keypair(),
+        transferFeeConfig
+      );
+  console.log('token0, token0Program, token1, token1Program: ',token0, token0Program, token1, token1Program)
+}
+
+async function setInit() {
+  const { configAddress, token0, token0Program, token1, token1Program } =
+      await setupInitializeTest2(
+        program,
+        // anchor.getProvider().connection,
+        connection,
+        owner,
+        {
+          config_index: 0,
+          tradeFeeRate: new BN(10),
+          protocolFeeRate: new BN(1000),
+          fundFeeRate: new BN(25000),
+          create_fee: new BN(0),
+        },
+        { transferFeeBasisPoints: 0, MaxFee: 0 },
+        confirmOptions
+  );
+  console.log('configAddress, token0, token0Program, token1, token1Program : ', configAddress, token0, token0Program, token1, token1Program)
+}
+
 async function init() {
     const{ poolAddress, poolState } = await initialize2(
         program, 
@@ -69,4 +111,6 @@ async function init() {
     console.log('poolState: ',poolState)
 }
 
-init();
+preSetInit();
+// setInit();
+// init();

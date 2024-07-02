@@ -31,10 +31,10 @@ import {
 } from './index';
 import { RaydiumCpSwap } from './types/raydium_cp_swap';
 
-export async function setupInitializeTest(
+export async function setupInitializeTest2(
     program: Program<RaydiumCpSwap>,
     connection: Connection,
-    owner: Signer,
+    owner: any,
     config: {
       config_index: number;
       tradeFeeRate: BN;

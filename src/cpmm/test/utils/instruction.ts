@@ -281,8 +281,8 @@ export async function initialize(
   token1Program: PublicKey,
   confirmOptions?: ConfirmOptions,
   initAmount: { initAmount0: BN; initAmount1: BN } = {
-    initAmount0: new BN(10000000000),
-    initAmount1: new BN(20000000000),
+    initAmount0: new BN(1),
+    initAmount1: new BN(2),
   },
   createPoolFee = new PublicKey("G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2")  //devnet fee account
 ) {
