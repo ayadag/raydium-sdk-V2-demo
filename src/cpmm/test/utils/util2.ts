@@ -29,8 +29,10 @@ import { sendTransaction } from './index';
 // create a token mint and a token2022 mint with transferFeeConfig
 export async function createTokenMintAndAssociatedTokenAccount2(
   connection: Connection,
+  // payer: Signer,
   payer: any,
-  mintAuthority: Signer,
+  // mintAuthority: Signer,
+  mintAuthority: Keypair,
   transferFeeConfig: { transferFeeBasisPoints: number; MaxFee: number }
 ) {
   let ixs: TransactionInstruction[] = [];
