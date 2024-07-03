@@ -52,9 +52,14 @@ const confirmOptions = {
 }
 const configAddress = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
 
-const token0 = new PublicKey('So11111111111111111111111111111111111111112');
-const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-const token1 = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
+// const token0 = new PublicKey('So11111111111111111111111111111111111111112');
+// const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+// const token1 = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
+// const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+
+const token0 = new PublicKey('53wsF2iZN15evNGpKD8trfsJzT8nRju4Gyx57gLa8Nxe');
+const token0Program = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
+const token1 = new PublicKey('HrNCd4LeBoh4YfAkmwX24kvbD6EFo9asLG8WeiR72XHB');
 const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 
 const initAmount: { initAmount0: BN; initAmount1: BN } = {
