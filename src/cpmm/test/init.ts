@@ -60,11 +60,20 @@ const initAmount: { initAmount0: BN; initAmount1: BN } = {
     initAmount1: new BN(2),
 }
 
+async function KeypairGen() {
+  const KeypairGen = new Keypair();
+  console.log('KeypairGen: ', KeypairGen)
+  return KeypairGen
+}
+
 async function preSetInit() {
   const transferFeeConfig: { transferFeeBasisPoints: number; MaxFee: number } = {
     transferFeeBasisPoints: 0,
     MaxFee: 0,
   }
+  const Keypairgen = await KeypairGen();
+  console.log('Keypairgen: ', Keypairgen);
+
   const [{ token0, token0Program }, { token1, token1Program }] =
       await createTokenMintAndAssociatedTokenAccount2(
         // connection,
@@ -72,7 +81,8 @@ async function preSetInit() {
         provider.connection,
         owner,
         // own,
-        new Keypair(),
+        // new Keypair(),
+        Keypairgen,
         transferFeeConfig
       );
   console.log('token0, token0Program, token1, token1Program: ',token0, token0Program, token1, token1Program)
@@ -114,6 +124,7 @@ async function init() {
     console.log('poolState: ',poolState)
 }
 
+// KeypairGen();
 preSetInit();
 // setInit();
 // init();
