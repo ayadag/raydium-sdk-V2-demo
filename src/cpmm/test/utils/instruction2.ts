@@ -273,7 +273,7 @@ export async function setupInitializeTest2(
   
   export async function initialize2(
     program: Program<RaydiumCpSwap>,
-    creator: any,
+    creator: Signer,
     configAddress: PublicKey,
     token0: PublicKey,
     token0Program: PublicKey,
@@ -315,6 +315,9 @@ export async function setupInitializeTest2(
       ],
       ASSOCIATED_PROGRAM_ID
     );
+
+    console.log('creatorLpTokenAddress: ',creatorLpTokenAddress);
+    console.log('ASSOCIATED_PROGRAM_ID: ',ASSOCIATED_PROGRAM_ID)
   
     const [observationAddress] = await getOrcleAccountAddress(
       poolAddress,
@@ -333,6 +336,7 @@ export async function setupInitializeTest2(
       false,
       token1Program
     );
+    // const poolState = await program.account.poolState.fetch(poolAddress);
     await program.methods
       .initialize(initAmount.initAmount0, initAmount.initAmount1, new BN(0))
       .accounts({
@@ -340,6 +344,7 @@ export async function setupInitializeTest2(
         ammConfig: configAddress,
         authority: auth,
         poolState: poolAddress,
+        // poolState: poolState,
         token0Mint: token0,
         token1Mint: token1,
         lpMint: lpMintAddress,

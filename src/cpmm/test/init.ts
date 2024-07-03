@@ -20,7 +20,6 @@ import {
 import {
   createAmmConfig,
   createTokenMintAndAssociatedTokenAccount2,
-  initialize,
   initialize2,
 } from './utils';
 import {
@@ -133,7 +132,7 @@ async function preSetInit2() {
 async function init2() {
   const initAmount0 = new BN(10000000000);
   const initAmount1 = new BN(10000000000);
-  const { poolAddress, poolState } = await initialize(
+  const { poolAddress, poolState } = await initialize2(
     program,
     owner.payer,
     configAddress,
@@ -147,7 +146,8 @@ async function init2() {
   console.log('poolAddress: ',poolAddress)  //ayad
   let vault0 = await getAccount(
       // anchor.getProvider().connection,
-      connection,
+      // connection,
+      provider.connection,
       poolState.token0Vault,
       "processed",
       poolState.token0Program
@@ -157,7 +157,8 @@ async function init2() {
 
     let vault1 = await getAccount(
       // anchor.getProvider().connection,
-      connection,
+      // connection,
+      provider.connection,
       poolState.token1Vault,
       "processed",
       poolState.token1Program
@@ -193,7 +194,7 @@ async function init2() {
 async function init() {
     const{ poolAddress, poolState } = await initialize2(
         program, 
-        owner, 
+        owner.payer, 
         configAddress, 
         token0, 
         token0Program, 
