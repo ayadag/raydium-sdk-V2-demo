@@ -67,8 +67,11 @@ async function preSetInit() {
   }
   const [{ token0, token0Program }, { token1, token1Program }] =
       await createTokenMintAndAssociatedTokenAccount2(
-        connection,
+        // connection,
+        // anchor.getProvider().connection,
+        provider.connection,
         owner,
+        // own,
         new Keypair(),
         transferFeeConfig
       );
