@@ -12,6 +12,7 @@ import {
 
 import {
   connection,
+  keyPair,
   owner as own,
 } from '../../config';
 // import { initialize } from './utils';
@@ -46,7 +47,8 @@ const program = new Program<RaydiumCpSwap>(
 
 
 const confirmOptions = {
-    skipPreflight: true,
+    // skipPreflight: true,
+    skipPreflight: false,
 }
 const configAddress = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
 
@@ -72,7 +74,9 @@ async function preSetInit() {
     transferFeeBasisPoints: 0,
     MaxFee: 0,
   }
-  const Keypairgen = await KeypairGen();
+  // const Keypairgen = await KeypairGen();
+  const Keypairgen = keyPair;
+
   console.log('Keypairgen: ', Keypairgen);
 
   console.log('owner.payer: ',owner.payer)
