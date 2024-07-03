@@ -24,14 +24,30 @@ export const createPool = async () => {
       decimals: 6,
     } 
    */
+  // const mintA = {
+  //   address: 'So11111111111111111111111111111111111111112',
+  //   programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  //   decimals: 9,
+  // } 
+  // const mintB = {
+  //   address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+  //   programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  //   decimals: 9,
+  // } 
+
+  // const token0 = new PublicKey('715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3');
+  // const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+  // const token1 = new PublicKey('974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q');
+  // const token1Program = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
+
   const mintA = {
-    address: 'So11111111111111111111111111111111111111112',
+    address: '715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3',
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     decimals: 9,
   } 
   const mintB = {
-    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
-    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    address: '974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q',
+    programId: 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb',
     decimals: 9,
   } 
 
@@ -43,8 +59,8 @@ export const createPool = async () => {
     // poolFeeAccount: new PublicKey('G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2'), // Ayad you shold change that!
     mintA,
     mintB,
-    mintAAmount: new BN(1),
-    mintBAmount: new BN(10),
+    mintAAmount: new BN(1000),
+    mintBAmount: new BN(1000),
     startTime: new BN(0),
     associatedOnly: false,
     ownerInfo: {

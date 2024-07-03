@@ -51,7 +51,8 @@ const confirmOptions = {
     // skipPreflight: true,
     skipPreflight: false,
 }
-const configAddress = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
+// const configAddress = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
+const configAddress1 = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
 
 // const token0 = new PublicKey('So11111111111111111111111111111111111111112');
 // const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
@@ -130,12 +131,14 @@ async function preSetInit2() {
 }
 
 async function init2() {
-  const initAmount0 = new BN(10000000000);
-  const initAmount1 = new BN(10000000000);
+  // const initAmount0 = new BN(10000000000);
+  // const initAmount1 = new BN(10000000000);
+  const initAmount0 = new BN(1000);
+  const initAmount1 = new BN(1000);
   const { poolAddress, poolState } = await initialize2(
     program,
     owner.payer,
-    configAddress,
+    configAddress1,
     token0,
     token0Program,
     token1,
@@ -195,7 +198,7 @@ async function init() {
     const{ poolAddress, poolState } = await initialize2(
         program, 
         owner.payer, 
-        configAddress, 
+        configAddress1, 
         token0, 
         token0Program, 
         token1, 

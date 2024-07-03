@@ -284,7 +284,9 @@ export async function setupInitializeTest2(
       initAmount0: new BN(1),
       initAmount1: new BN(2),
     },
-    createPoolFee = new PublicKey("G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2")  //devnet fee account
+    // createPoolFee = new PublicKey("G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2")  //devnet fee account
+    createPoolFee = new PublicKey("HxKiEkhNNcifMj3Jz22QbXcD7mNg3PCm1cNe3WYjYeR9")  //devnet fee account
+    
   ) {
     const [auth] = await getAuthAddress(program.programId);
     const [poolAddress] = await getPoolAddress(
@@ -316,8 +318,8 @@ export async function setupInitializeTest2(
       ASSOCIATED_PROGRAM_ID
     );
 
-    console.log('creatorLpTokenAddress: ',creatorLpTokenAddress);
-    console.log('ASSOCIATED_PROGRAM_ID: ',ASSOCIATED_PROGRAM_ID)
+    // console.log('creatorLpTokenAddress: ',creatorLpTokenAddress);
+    // console.log('ASSOCIATED_PROGRAM_ID: ',ASSOCIATED_PROGRAM_ID)
   
     const [observationAddress] = await getOrcleAccountAddress(
       poolAddress,
@@ -362,6 +364,7 @@ export async function setupInitializeTest2(
         rent: SYSVAR_RENT_PUBKEY,
       })
       .rpc(confirmOptions);
+      
     const poolState = await program.account.poolState.fetch(poolAddress);
     return { poolAddress, poolState };
   }
