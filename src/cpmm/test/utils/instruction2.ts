@@ -75,7 +75,7 @@ export async function setupInitializeTest2(
     };
   }
   
-  export async function setupDepositTest(
+  export async function setupDepositTest2(
     program: Program<RaydiumCpSwap>,
     connection: Connection,
     owner: Signer,
@@ -112,7 +112,8 @@ export async function setupInitializeTest2(
       confirmOptions
     );
   
-    while (1) {
+    // let { poolAddress, poolState } = {'poolAddress':0,'poolState':0};
+    // while (1) {
       const [{ token0, token0Program }, { token1, token1Program }] =
         await createTokenMintAndAssociatedTokenAccount(
           connection,
@@ -126,7 +127,9 @@ export async function setupInitializeTest2(
           token0Program.equals(tokenProgramRequired.token0Program) &&
           token1Program.equals(tokenProgramRequired.token1Program)
         ) {
-          return await initialize2(
+          
+          //return await initialize2(
+          const { poolAddress, poolState } = await initialize2(
             program,
             owner,
             configAddress,
@@ -137,9 +140,13 @@ export async function setupInitializeTest2(
             confirmOptions,
             initAmount
           );
+          // break;
+          return { poolAddress, poolState };
+          // break;
         }
       } else if (token0 != undefined && token1 != undefined && token0Program != undefined && token1Program != undefined) {
-        return await initialize2(
+        //return await initialize2(
+        const { poolAddress, poolState } = await initialize2(
           program,
           owner,
           configAddress,
@@ -150,8 +157,15 @@ export async function setupInitializeTest2(
           confirmOptions,
           initAmount
         );
+        return { poolAddress, poolState };
+      } else {
+        let { poolAddress, poolState } = {'poolAddress': 0,'poolState':0};
+        return { poolAddress, poolState }
       }
-    }
+      // return { poolAddress, poolState };
+      // break; //ayad
+    // }
+    // return { poolAddress, poolState };
   }
   
   export async function setupSwapTest(
