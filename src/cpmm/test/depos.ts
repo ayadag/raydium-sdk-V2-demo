@@ -7,13 +7,11 @@ import {
   setProvider,
 } from '@coral-xyz/anchor';
 import NodeWallet from '@coral-xyz/anchor/dist/cjs/nodewallet';
-import {
-  Keypair,
-  PublicKey,
-} from '@solana/web3.js';
+import { PublicKey } from '@solana/web3.js';
 
 import {
   connection,
+  keyPair,
   owner as own,
 } from '../../config';
 // import { initialize } from './utils';
@@ -98,7 +96,7 @@ async function setupDeposTest02(){
 
     while(1){
           // const Keypairgen = await KeypairGen();
-        //   const Keypairgen = keyPair;
+          const Keypairgen = keyPair;
         //   console.log('Keypairgen: ', Keypairgen);
         //   console.log('owner.payer: ',owner.payer)
         const [{ token0, token0Program }, { token1, token1Program }] =
@@ -109,8 +107,8 @@ async function setupDeposTest02(){
                 // owner,
             owner.payer,
                 // own,
-            new Keypair(),
-                // Keypairgen,
+            // new Keypair(),
+                Keypairgen,
             transferFeeConfig
         );
 
@@ -162,3 +160,5 @@ async function setupDeposTest02(){
     
 }
 
+// setupDeposTest01();
+setupDeposTest02();
