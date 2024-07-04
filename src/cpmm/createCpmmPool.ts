@@ -54,8 +54,12 @@ export const createPool = async () => {
   const { execute, extInfo } = await raydium.cpmm.createPool({
     // programId: CREATE_CPMM_POOL_PROGRAM, // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
     // poolFeeAccount: CREATE_CPMM_POOL_FEE_ACC, // devnet: CREATE_CPMM_POOL_FEE_ACC.CREATE_CPMM_POOL_PROGRAM
-    programId: new PublicKey('y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe'), // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
-    poolFeeAccount: new PublicKey('HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
+    // programId: new PublicKey('y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe'), // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
+    // poolFeeAccount: new PublicKey('HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
+    programId: new PublicKey('97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo'), // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
+    poolFeeAccount: new PublicKey('8niFqtDg5vk6ANcw8pQEq6MB8gKMqRsRy8gM41QkxJhQ'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
+
+    
     // poolFeeAccount: new PublicKey('G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2'), // Ayad you shold change that!
     mintA,
     mintB,
