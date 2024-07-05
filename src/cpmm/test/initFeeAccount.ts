@@ -53,3 +53,5 @@ async function checkProgram(): Promise<void> {
     await sendAndConfirmTransaction(connection, transaction, [payer]);
   }
 }
+
+checkProgram();
