@@ -14,10 +14,10 @@ import {
 
 // const programId = payer.publicKey;
 // const WSOLprogramId = new PublicKey('So11111111111111111111111111111111111111112');
-// const programId = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+const programId = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 // const WSOLprogramId = programId
 // const programId = WSOLprogramId;
-const programId = SystemProgram.programId;
+// const programId = SystemProgram.programId;
 const WSOL = new PublicKey('So11111111111111111111111111111111111111112');
 const rentSysvar = new PublicKey('SysvarRent111111111111111111111111111111111');
 const tokenProgram = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
@@ -66,7 +66,8 @@ export async function establishPayer(): Promise<any> {
 async function checkProgram(): Promise<void> {
     
   // Derive the address (public key) of a greeting account from the program so that it's easy to find later.
-    const GREETING_SEED = 'hello';
+    // const GREETING_SEED = 'hello';
+    const GREETING_SEED = 'hi';
     const greetedPubkey = await PublicKey.createWithSeed(
     payer.publicKey,
     GREETING_SEED,
@@ -104,11 +105,11 @@ async function checkProgram(): Promise<void> {
       }),
 
       //Token Program: Initialize Account
-      createInitializeAccountInstruction(greetedPubkey ,WSOL, payer.publicKey, rentSysvar)
+      createInitializeAccountInstruction(greetedPubkey ,WSOL, payer.publicKey, programId),
     );
     await sendAndConfirmTransaction(connection, transaction, [payer]);
     console.log('transaction: ',transaction)
   }
 }
-// establishPayer();
+establishPayer();
 checkProgram();
