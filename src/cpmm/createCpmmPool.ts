@@ -24,32 +24,32 @@ export const createPool = async () => {
       decimals: 6,
     } 
    */
-  // const mintA = {
-  //   address: 'So11111111111111111111111111111111111111112',
-  //   programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-  //   decimals: 9,
-  // } 
-  // const mintB = {
-  //   address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
-  //   programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-  //   decimals: 9,
-  // } 
+  const mintA = {
+    address: 'So11111111111111111111111111111111111111112',
+    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    decimals: 9,
+  } 
+  const mintB = {
+    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    decimals: 9,
+  } 
 
   // const token0 = new PublicKey('715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3');
   // const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
   // const token1 = new PublicKey('974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q');
   // const token1Program = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
 
-  const mintA = {
-    address: '715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3',
-    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-    decimals: 9,
-  } 
-  const mintB = {
-    address: '974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q',
-    programId: 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb',
-    decimals: 9,
-  } 
+  // const mintA = {
+  //   address: '715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3',
+  //   programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  //   decimals: 9,
+  // } 
+  // const mintB = {
+  //   address: '974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q',
+  //   programId: 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb',
+  //   decimals: 9,
+  // } 
 
   const { execute, extInfo } = await raydium.cpmm.createPool({
     // programId: CREATE_CPMM_POOL_PROGRAM, // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
@@ -57,14 +57,16 @@ export const createPool = async () => {
     // programId: new PublicKey('y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe'), // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
     // poolFeeAccount: new PublicKey('HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
     programId: new PublicKey('97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo'), // devnet: DEVNET_PROGRAM_ID.CREATE_CPMM_POOL_PROGRAM
-    poolFeeAccount: new PublicKey('8niFqtDg5vk6ANcw8pQEq6MB8gKMqRsRy8gM41QkxJhQ'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
+    // poolFeeAccount: new PublicKey('8niFqtDg5vk6ANcw8pQEq6MB8gKMqRsRy8gM41QkxJhQ'),  // devnet HGt6hRAEmpTdkTdMnshmcjZYN1JVRrhHPtVGbk4Br8Zx
+    poolFeeAccount: new PublicKey('DWSb1UKCzFBAu9rNccuUqheEG46VdrLHNhBVGKA4xyqh'),  // devnet HxKiEkhNNcifMj3Jz22QbXcD7mNg3PCm1cNe3WYjYeR9
 
     
     // poolFeeAccount: new PublicKey('G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2'), // Ayad you shold change that!
     mintA,
     mintB,
-    mintAAmount: new BN(1000),
-    mintBAmount: new BN(1000),
+    mintAAmount: new BN(1),
+    // mintBAmount: new BN(1000),
+    mintBAmount: new BN(10000),
     startTime: new BN(0),
     associatedOnly: false,
     ownerInfo: {
