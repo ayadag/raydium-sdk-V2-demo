@@ -1,4 +1,5 @@
 import {
+  LAMPORTS_PER_SOL,
   PublicKey,
   sendAndConfirmTransaction,
   SystemProgram,
@@ -11,10 +12,49 @@ import {
 } from '../../config';
 
 // const programId = payer.publicKey;
-const WSOLprogramId = new PublicKey('So11111111111111111111111111111111111111112');
+// const WSOLprogramId = new PublicKey('So11111111111111111111111111111111111111112');
 const programId = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+const WSOLprogramId = programId
+// const programId = WSOLprogramId;
 
 const GREETING_SIZE = 165;
+
+export async function establishPayer(): Promise<any> {
+    let fees = 0;
+    // if (!payer) {
+      const {feeCalculator} = await connection.getRecentBlockhash();
+  
+      // Calculate the cost to fund the greeter account
+      fees += await connection.getMinimumBalanceForRentExemption(GREETING_SIZE);
+  
+      // Calculate the cost of sending transactions
+      fees += feeCalculator.lamportsPerSignature * 100; // wag
+  
+    //   payer = payer.publicKey;
+    // }
+  
+    let lamports = await connection.getBalance(payer.publicKey);
+    if (lamports < fees) {
+      // If current balance is not enough to pay for fees, request an airdrop
+      const sig = await connection.requestAirdrop(
+        payer.publicKey,
+        fees - lamports,
+      );
+      await connection.confirmTransaction(sig);
+      lamports = await connection.getBalance(payer.publicKey);
+    }
+  
+    console.log(
+      'Using account',
+      payer.publicKey.toBase58(),
+      'containing',
+      lamports / LAMPORTS_PER_SOL,
+      'SOL to pay for fees',
+    );
+
+    return fees;
+    // return lamports / LAMPORTS_PER_SOL;
+  }
 
 async function checkProgram(): Promise<void> {
     
@@ -34,10 +74,14 @@ async function checkProgram(): Promise<void> {
       greetedPubkey.toBase58(),
       'to say hello to',
     );
-    const lamports = await connection.getMinimumBalanceForRentExemption(
-      GREETING_SIZE,
-    );
+
+    // const lamports = await connection.getMinimumBalanceForRentExemption(
+    //   GREETING_SIZE,
+    // );
+
     // const lamports = 0.0010093 * 1000000000; //0.0010092 SOL
+
+    const lamports = await establishPayer();
 
     const transaction = new Transaction().add(
       SystemProgram.createAccountWithSeed({
@@ -48,10 +92,12 @@ async function checkProgram(): Promise<void> {
         lamports,
         space: GREETING_SIZE,
         programId,
+        // WSOLprogramId
       }),
     );
     await sendAndConfirmTransaction(connection, transaction, [payer]);
+    console.log('transaction: ',transaction)
   }
 }
-
+// establishPayer();
 checkProgram();
