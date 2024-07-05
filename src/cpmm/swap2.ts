@@ -1,9 +1,11 @@
 import BN from 'bn.js';
 
-import {
-  ApiV3PoolInfoStandardItemCpmm,
-  CurveCalculator,
-} from '@raydium-io/raydium-sdk-v2';
+// import {
+//   ApiV3PoolInfoStandardItemCpmm,
+//   CurveCalculator,
+//   ApiV3Token,
+// } from '@raydium-io/raydium-sdk-v2';
+import { CurveCalculator } from '@raydium-io/raydium-sdk-v2';
 
 import { initSdk } from '../config';
 import { isValidCpmm } from './utils';
@@ -58,15 +60,42 @@ export const swap = async () => {
   // SOL - USDC pool
   // note: api doesn't support get devnet pool info
   const data = await raydium.api.fetchPoolById({ ids: 'CnoKYnj3GNdTxQfKKBxmq33rJMShyt3eC1zWGgfptzkT' })
-  const poolInfo = data[0] as ApiV3PoolInfoStandardItemCpmm
-  if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
-  const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
+  // const poolInfo = data[0] as ApiV3PoolInfoStandardItemCpmm
+
+  // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
+  // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
+
+  // const minta: ApiV3Token ={
+    const minta = {
+    name: 'WSOL',
+    symbol: 'WSOL',
+    address: 'So11111111111111111111111111111111111111112',
+    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    decimals: 9
+  }
+  // const mintb: ApiV3Token = {
+    const mintb = {
+    name: 'SALD',
+    symbol: 'SALD',
+    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    decimals: 9
+  }
 
   // const poolInfo2: ApiV3PoolInfoStandardItemCpmm = {
-    
-  // }
+    const poolInfo2 = {
+    programId: '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo',
+    id: '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV',
+    mintA: minta,
+    mintB: mintb
+  }
 
-  const inputAmount = new BN(100)
+  const poolInfo = poolInfo2;
+  
+  if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
+    const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
+
+  const inputAmount = new BN(1)
   const inputMint = poolInfo.mintA.address
   const baseIn = inputMint === poolInfo.mintA.address
 
