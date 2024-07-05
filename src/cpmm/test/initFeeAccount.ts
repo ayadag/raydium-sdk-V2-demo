@@ -1,3 +1,4 @@
+import { createInitializeAccountInstruction } from '@solana/spl-token';
 import {
   LAMPORTS_PER_SOL,
   PublicKey,
@@ -13,9 +14,15 @@ import {
 
 // const programId = payer.publicKey;
 // const WSOLprogramId = new PublicKey('So11111111111111111111111111111111111111112');
-const programId = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-const WSOLprogramId = programId
+// const programId = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+// const WSOLprogramId = programId
 // const programId = WSOLprogramId;
+const programId = SystemProgram.programId;
+const WSOL = new PublicKey('So11111111111111111111111111111111111111112');
+const rentSysvar = new PublicKey('SysvarRent111111111111111111111111111111111');
+const tokenProgram = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+
+
 
 const GREETING_SIZE = 165;
 
@@ -63,7 +70,8 @@ async function checkProgram(): Promise<void> {
     const greetedPubkey = await PublicKey.createWithSeed(
     payer.publicKey,
     GREETING_SEED,
-    WSOLprogramId,
+    // WSOLprogramId,
+    tokenProgram,
     );
 
     // Check if the greeting account has already been created
@@ -94,6 +102,9 @@ async function checkProgram(): Promise<void> {
         programId,
         // WSOLprogramId
       }),
+
+      //Token Program: Initialize Account
+      createInitializeAccountInstruction(greetedPubkey ,WSOL, payer.publicKey, rentSysvar)
     );
     await sendAndConfirmTransaction(connection, transaction, [payer]);
     console.log('transaction: ',transaction)
