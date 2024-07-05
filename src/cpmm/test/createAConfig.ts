@@ -23,7 +23,9 @@ type config = {
 }
 
 const connection = new Connection(clusterApiUrl("devnet"));
-const programId = 'y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe';
+// const programId = 'y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe';
+const programId = '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo';
+
 const program = new Program<RaydiumCpSwap>(IDL, programId, { connection });
 
 const confirmOptions = {
