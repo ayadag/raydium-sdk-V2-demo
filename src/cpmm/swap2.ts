@@ -14,7 +14,6 @@ import {
 } from '@raydium-io/raydium-sdk-v2';
 
 import { initSdk } from '../config';
-import { isValidCpmm } from './utils';
 
 // export interface ApiV3PoolInfoBaseItem {
 //   programId: string;
@@ -121,9 +120,11 @@ export const swap = async () => {
   // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
   // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
+  ////////////////////////////////
   const programId = '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo';
   const poolId = '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV';
   const tokenProgram = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+  ////////////////////////////////
 
   // const raydium = await initSdk()
   const rpcData = await raydium.cpmm.getRpcPoolInfo(poolId, true)
@@ -278,10 +279,10 @@ export const swap = async () => {
 
   const poolInfo = poolInfo2;
   
-  if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
+  // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
     // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
-  const inputAmount = new BN(1)
+  const inputAmount = new BN(0.1)
   const inputMint = poolInfo.mintA.address
   const baseIn = inputMint === poolInfo.mintA.address
 
@@ -387,4 +388,6 @@ async function test() {
   //   poolPrice: 10000
   // }
 }
-test();
+// test();
+
+swap();
