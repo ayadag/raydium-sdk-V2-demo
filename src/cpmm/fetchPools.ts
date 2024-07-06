@@ -37,4 +37,8 @@ async function getParsedProgramAccounts() {
         ],
       },
     )
+
+    console.log('accounts: ',accounts)
 }
+
+getParsedProgramAccounts();
