@@ -222,6 +222,13 @@ export const swap = async () => {
     tradeFeeRate: Number(rpcData.configInfo!.tradeFeeRate.toNumber),
     fundFeeRate: Number(rpcData.configInfo!.fundFeeRate.toNumber),
     createPoolFee: `${rpcData.configInfo!.createPoolFee.toString}`,
+
+    // id: `${rpcData.configId.toString}`,//Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK
+    // index: 0,
+    // protocolFeeRate: 1000,
+    // tradeFeeRate: 10,
+    // fundFeeRate: 25000,
+    // createPoolFee: `0`,
   }
   
 
@@ -282,8 +289,9 @@ export const swap = async () => {
   // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
     // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
-  const inputAmount = new BN(0.1)
-  const inputMint = poolInfo.mintA.address
+  const inputAmount = new BN(2, 10)
+  // const inputMint = poolInfo.mintA.address
+  const inputMint = poolInfo.mintB.address
   const baseIn = inputMint === poolInfo.mintA.address
 
   // swap pool mintA for mintB
@@ -299,6 +307,12 @@ export const swap = async () => {
    * swapResult.destinationAmountSwapped -> output amount
    * swapResult.tradeFee -> this swap fee, charge input mint
    */
+  console.log(
+    'swapResult.sourceAmountSwapped, swapResult.destinationAmountSwapped, swapResult.tradeFee',
+    swapResult.sourceAmountSwapped,
+    swapResult.destinationAmountSwapped,
+    swapResult.tradeFee
+  )
 
   const { execute } = await raydium.cpmm.swap({
     poolInfo: poolInfo2,
