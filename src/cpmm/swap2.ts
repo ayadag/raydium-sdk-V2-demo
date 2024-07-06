@@ -5,7 +5,10 @@ import BN from 'bn.js';
 //   CurveCalculator,
 //   ApiV3Token,
 // } from '@raydium-io/raydium-sdk-v2';
-import { CurveCalculator } from '@raydium-io/raydium-sdk-v2';
+import {
+  ApiV3Token,
+  CurveCalculator,
+} from '@raydium-io/raydium-sdk-v2';
 
 import { initSdk } from '../config';
 import { isValidCpmm } from './utils';
@@ -54,6 +57,11 @@ import { isValidCpmm } from './utils';
 //   extensions: ExtensionsItem;
 // };
 
+// type ExtensionsItem = {
+//   coingeckoId?: string;
+//   feeConfig?: TransferFeeDataBaseType;
+// };
+
 export const swap = async () => {
   const raydium = await initSdk()
 
@@ -65,35 +73,79 @@ export const swap = async () => {
   // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
   // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
-  // const minta: ApiV3Token ={
-    const minta = {
+  const programId = '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo';
+  const poolId = '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV';
+  // const raydium = await initSdk()
+  const rpcData = await raydium.cpmm.getRpcPoolInfo(poolId, true)
+
+  const minta: ApiV3Token ={
+    // const minta = {
     name: 'WSOL',
     symbol: 'WSOL',
-    address: 'So11111111111111111111111111111111111111112',
-    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-    decimals: 9
+    // address: 'So11111111111111111111111111111111111111112',
+    address: `${rpcData.mintA.toString}`,
+    // programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    programId: `${rpcData.mintProgramA.toString}`,
+    // decimals: 9,
+    decimals: rpcData.mintDecimalA,
+    logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
+    tags: [],
+    chainId: 0, 
+    extensions: {},
   }
   // const mintb: ApiV3Token = {
     const mintb = {
     name: 'SALD',
     symbol: 'SALD',
-    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
-    programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-    decimals: 9
+    // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    address: `${rpcData.mintB.toString}`,
+    // programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    programId: `${rpcData.mintProgramB.toString}`,
+    // decimals: 9,
+    decimals: rpcData.mintDecimalB,
+    logoURI: '',
+    tags: [],
+    chainId: 0, 
+    extensions: {},
   }
 
   // const poolInfo2: ApiV3PoolInfoStandardItemCpmm = {
     const poolInfo2 = {
-    programId: '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo',
-    id: '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV',
+    // programId: '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo',
+    programId: programId,
+    // id: '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV',
+    id: poolId,
     mintA: minta,
-    mintB: mintb
+    mintB: mintb,
+  // rewardDefaultInfos: PoolFarmRewardInfo[];
+  // rewardDefaultPoolInfos: "Ecosystem" | "Fusion" | "Raydium" | "Clmm";
+  // price: number;
+  // mintAmountA: number;
+  // mintAmountB: number;
+  // feeRate: number;
+  // openTime: string;
+  // tvl: number;
+
+  // day: ApiV3PoolInfoCountItem;
+  // week: ApiV3PoolInfoCountItem;
+  // month: ApiV3PoolInfoCountItem;
+  // pooltype: PoolTypeItem[];
+
+  // farmUpcomingCount: number;
+  // farmOngoingCount: number;
+  // farmFinishedCount: number;
+
+  //   type: "Standard";
+  // lpMint: ApiV3Token;
+  // lpPrice: number;
+  // lpAmount: number;
+  // config: ApiCpmmConfigV3;
   }
 
   const poolInfo = poolInfo2;
   
   if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
-    const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
+    // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
   const inputAmount = new BN(1)
   const inputMint = poolInfo.mintA.address
