@@ -14,6 +14,7 @@ import {
 } from '@raydium-io/raydium-sdk-v2';
 
 import { initSdk } from '../config';
+import { isValidCpmm } from './utils2';
 
 // export interface ApiV3PoolInfoBaseItem {
 //   programId: string;
@@ -286,7 +287,7 @@ export const swap = async () => {
 
   const poolInfo = poolInfo2;
   
-  // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
+  if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
     // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
   const inputAmount = new BN(2)
