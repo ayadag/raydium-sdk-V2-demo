@@ -5,7 +5,7 @@ import { PublicKey } from '@solana/web3.js';
 import {
   initSdk,
   txVersion,
-} from '../config';
+} from '../config-copy';
 
 export const createPool = async () => {
   const raydium = await initSdk({ loadToken: true })
@@ -16,6 +16,7 @@ export const createPool = async () => {
   // USDC
   // const mintB = await raydium.token.getTokenInfo('So11111111111111111111111111111111111111112')
 
+
   /**
    * you also can provide mint info directly like below, then don't have to call token info api
    *  {
@@ -24,6 +25,13 @@ export const createPool = async () => {
       decimals: 6,
     } 
    */
+  const SALD = 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb';
+  const SALD2 = 'DYd2TX2skjBzSKdcciMZpPKXh1nV75vm9jSyEtws3Vwb';
+  const SALD3 = 'AZDzcSuVg69kjoSCM97BoL8wUkMKTzu3XwVgxzW8RTr8';
+  const SALD4 = 'uBAsEVJJh8GKj6m5jXqLzWkB4PuysMpxmwFxDDk5Qdz';
+  const SALD5 = '9Psbfd6mLzFZmCfqZm1HFTx56TyzJx5SeMRhGJosmig1';
+  
+
   const mintA = {
     address: 'So11111111111111111111111111111111111111112',
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
