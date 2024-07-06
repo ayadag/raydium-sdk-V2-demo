@@ -41,4 +41,37 @@ async function getParsedProgramAccounts() {
     console.log('accounts: ',accounts)
 }
 
-getParsedProgramAccounts();
+//fetch all accounts (pools, configs ...)
+async function getProgramAccounts1() {
+  const accountsWithoutData = await connection.getProgramAccounts(
+    programId,
+    {
+      dataSlice: { offset: 0, length: 0 }
+    }
+  )
+  
+  const accountKeys = accountsWithoutData.map(account => account.pubkey);
+  console.log('accountKeys: ', accountKeys)
+}
+
+//fetch pool accounts only (637 byte(s))
+async function getProgramAccounts2() {
+  const accountsWithoutData = await connection.getProgramAccounts(
+    programId,
+    {
+      dataSlice: { offset: 0, length: 0 },
+      filters: [
+        {
+          dataSize: 637  //637 byte(s)
+        }
+      ]
+    }
+  )
+  
+  const accountKeys = accountsWithoutData.map(account => account.pubkey);
+  console.log('accountKeys: ', accountKeys)
+}
+
+// getParsedProgramAccounts();
+// getProgramAccounts1();
+getProgramAccounts2();
