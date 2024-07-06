@@ -289,7 +289,7 @@ export const swap = async () => {
   // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
     // const rpcData = await raydium.cpmm.getRpcPoolInfo(poolInfo.id, true)
 
-  const inputAmount = new BN(2, 10)
+  const inputAmount = new BN(2)
   // const inputMint = poolInfo.mintA.address
   const inputMint = poolInfo.mintB.address
   const baseIn = inputMint === poolInfo.mintA.address
