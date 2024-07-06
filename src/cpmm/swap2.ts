@@ -7,8 +7,10 @@ import BN from 'bn.js';
 // } from '@raydium-io/raydium-sdk-v2';
 import {
   ApiV3PoolInfoCountItem,
+  ApiV3PoolInfoStandardItemCpmm,
   ApiV3Token,
   CurveCalculator,
+  PoolFarmRewardInfo,
 } from '@raydium-io/raydium-sdk-v2';
 
 import { initSdk } from '../config';
@@ -94,6 +96,10 @@ import { isValidCpmm } from './utils';
 //   createPoolFee: string;
 // }
 
+type FarmRewardInfoOld = {
+    mint: ApiV3Token;
+    perSecond: number;
+}
 
 type ApiCpmmConfigV3 = {
   id: string;
@@ -168,13 +174,25 @@ export const swap = async () => {
     extensions: {},
   }
 
-  const PoolFarmRewardInfoA = {
-    minta,
+  const farmRewardInfoOldA:FarmRewardInfoOld = {
+    mint: minta,
     perSecond: 0,
   }
-  const PoolFarmRewardInfoB = {
-    mintb,
+  const farmRewardInfoOldB:FarmRewardInfoOld = {
+    mint: mintb,
     perSecond: 0,
+  }
+  const poolFarmRewardInfoA: PoolFarmRewardInfo = {
+    mint: farmRewardInfoOldA.mint,
+    perSecond: farmRewardInfoOldA.perSecond,
+    startTime: 0,
+    endTime: 0,
+  }
+  const poolFarmRewardInfoB: PoolFarmRewardInfo = {
+    mint: farmRewardInfoOldB.mint,
+    perSecond: farmRewardInfoOldB.perSecond,
+    startTime: 0,
+    endTime: 0,
   }
 
   const apiV3PoolInfoCountItem: ApiV3PoolInfoCountItem = {
@@ -199,15 +217,15 @@ export const swap = async () => {
   const apiCpmmConfigV3: ApiCpmmConfigV3 ={
     id: `${rpcData.configId.toString}`,//Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK
     index: rpcData.configInfo!.index,
-    protocolFeeRate: rpcData.configInfo!.protocolFeeRate.toNumber,
-    tradeFeeRate: rpcData.configInfo!.tradeFeeRate.toNumber,
-    fundFeeRate: rpcData.configInfo!.fundFeeRate.toNumber,
+    protocolFeeRate: Number(rpcData.configInfo!.protocolFeeRate.toNumber),
+    tradeFeeRate: Number(rpcData.configInfo!.tradeFeeRate.toNumber),
+    fundFeeRate: Number(rpcData.configInfo!.fundFeeRate.toNumber),
     createPoolFee: `${rpcData.configInfo!.createPoolFee.toString}`,
   }
   
 
   // const poolInfo2: ApiV3PoolInfoStandardItemCpmm = {
-    const poolInfo2 = {
+    const poolInfo2:ApiV3PoolInfoStandardItemCpmm = {
     // programId: '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo',
     programId: programId,
     // id: '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV',
@@ -215,11 +233,11 @@ export const swap = async () => {
     mintA: minta,
     mintB: mintb,
   // rewardDefaultInfos: PoolFarmRewardInfo[];
-    rewardDefaultInfos: [PoolFarmRewardInfoA, PoolFarmRewardInfoB] ,
+    rewardDefaultInfos: [poolFarmRewardInfoA, poolFarmRewardInfoB] ,
   // rewardDefaultPoolInfos: "Ecosystem" | "Fusion" | "Raydium" | "Clmm";
     rewardDefaultPoolInfos: 'Ecosystem',
   // price: number;
-    price: rpcData.poolPrice,
+    price: Number(rpcData.poolPrice.toNumber),
   // mintAmountA: number;
     mintAmountA: 1,
   // mintAmountB: number;
@@ -238,7 +256,7 @@ export const swap = async () => {
     week: apiV3PoolInfoCountItem,
     month: apiV3PoolInfoCountItem,
   // pooltype: PoolTypeItem[];
-    pooltype: "StablePool",
+    pooltype: ["StablePool"],
 
   // farmUpcomingCount: number;
   // farmOngoingCount: number;
@@ -251,9 +269,9 @@ export const swap = async () => {
     type: "Standard",
     lpMint: lpmint,
   // lpPrice: number;
-    lpPrice: rpcData.poolPrice,
+    lpPrice: Number(rpcData.poolPrice.toNumber),
   // lpAmount: number;
-    lpAmount: rpcData.lpAmount.toNumber,
+    lpAmount: Number(rpcData.lpAmount.toNumber),
   // config: ApiCpmmConfigV3;
     config: apiCpmmConfigV3,
   }
@@ -282,7 +300,7 @@ export const swap = async () => {
    */
 
   const { execute } = await raydium.cpmm.swap({
-    poolInfo,
+    poolInfo: poolInfo2,
     swapResult,
     slippage: 0.1, // range: 1 ~ 0.0001, means 100% ~ 0.01%
     baseIn,
