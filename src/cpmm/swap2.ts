@@ -6,6 +6,7 @@ import BN from 'bn.js';
 //   ApiV3Token,
 // } from '@raydium-io/raydium-sdk-v2';
 import {
+  ApiV3PoolInfoCountItem,
   ApiV3Token,
   CurveCalculator,
 } from '@raydium-io/raydium-sdk-v2';
@@ -62,6 +63,47 @@ import { isValidCpmm } from './utils';
 //   feeConfig?: TransferFeeDataBaseType;
 // };
 
+// type FarmRewardInfoOld = {
+//   mint: ApiV3Token;
+//   perSecond: number;
+// };
+// export type PoolFarmRewardInfo = FarmRewardInfoOld & {
+//   startTime?: number;
+//   endTime?: number;
+// };
+
+// export interface ApiV3PoolInfoCountItem {
+//   volume: number;
+//   volumeQuote: number;
+//   volumeFee: number;
+//   apr: number;
+//   feeApr: number;
+//   priceMin: number;
+//   priceMax: number;
+//   rewardApr: number[];
+// }
+
+// type PoolTypeItem = "StablePool" | "OpenBookMarket";
+
+// interface ApiCpmmConfigV3 {
+//   id: string;
+//   index: number;
+//   protocolFeeRate: number;
+//   tradeFeeRate: number;
+//   fundFeeRate: number;
+//   createPoolFee: string;
+// }
+
+
+type ApiCpmmConfigV3 = {
+  id: string;
+  index: number;
+  protocolFeeRate: number;
+  tradeFeeRate: number;
+  fundFeeRate: number;
+  createPoolFee: string;
+}
+
 export const swap = async () => {
   const raydium = await initSdk()
 
@@ -75,6 +117,8 @@ export const swap = async () => {
 
   const programId = '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo';
   const poolId = '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV';
+  const tokenProgram = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA';
+
   // const raydium = await initSdk()
   const rpcData = await raydium.cpmm.getRpcPoolInfo(poolId, true)
 
@@ -94,7 +138,7 @@ export const swap = async () => {
     extensions: {},
   }
   // const mintb: ApiV3Token = {
-    const mintb = {
+    const mintb: ApiV3Token = {
     name: 'SALD',
     symbol: 'SALD',
     // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
@@ -109,6 +153,59 @@ export const swap = async () => {
     extensions: {},
   }
 
+  const lpmint: ApiV3Token = {
+    name: '',
+    symbol: '',
+    // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    address: `${rpcData.mintLp.toString}`,
+    // programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+    programId: tokenProgram,
+    // decimals: 9,
+    decimals: rpcData.lpDecimals,
+    logoURI: '',
+    tags: [],
+    chainId: 0, 
+    extensions: {},
+  }
+
+  const PoolFarmRewardInfoA = {
+    minta,
+    perSecond: 0,
+  }
+  const PoolFarmRewardInfoB = {
+    mintb,
+    perSecond: 0,
+  }
+
+  const apiV3PoolInfoCountItem: ApiV3PoolInfoCountItem = {
+    volume: 0,
+    volumeQuote: 0,
+    volumeFee: 0,
+    apr: 0,
+    feeApr: 0,
+    priceMin: 0,
+    priceMax: 0,
+    rewardApr: [0],
+  }
+
+//   const config: config = {
+//     config_index: 0,
+//     tradeFeeRate: new BN(10),
+//     protocolFeeRate: new BN(1000),
+//     fundFeeRate: new BN(25000),
+//     create_fee: new BN(0),
+// }
+
+  const apiCpmmConfigV3: ApiCpmmConfigV3 ={
+    id: `${rpcData.configId.toString}`,//Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK
+    index: rpcData.configInfo!.index,
+    protocolFeeRate: rpcData.configInfo!.protocolFeeRate.toNumber,
+    tradeFeeRate: rpcData.configInfo!.tradeFeeRate.toNumber,
+    fundFeeRate: rpcData.configInfo!.fundFeeRate.toNumber,
+    createPoolFee: `${rpcData.configInfo!.createPoolFee.toString}`,
+  }
+  
+
   // const poolInfo2: ApiV3PoolInfoStandardItemCpmm = {
     const poolInfo2 = {
     // programId: '97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo',
@@ -118,28 +215,47 @@ export const swap = async () => {
     mintA: minta,
     mintB: mintb,
   // rewardDefaultInfos: PoolFarmRewardInfo[];
+    rewardDefaultInfos: [PoolFarmRewardInfoA, PoolFarmRewardInfoB] ,
   // rewardDefaultPoolInfos: "Ecosystem" | "Fusion" | "Raydium" | "Clmm";
+    rewardDefaultPoolInfos: 'Ecosystem',
   // price: number;
+    price: rpcData.poolPrice,
   // mintAmountA: number;
+    mintAmountA: 1,
   // mintAmountB: number;
+    mintAmountB: 1,
   // feeRate: number;
+    feeRate: 0,
   // openTime: string;
+    openTime: `${rpcData.openTime.toString}`,
   // tvl: number;
+    tvl: 0,
 
   // day: ApiV3PoolInfoCountItem;
   // week: ApiV3PoolInfoCountItem;
   // month: ApiV3PoolInfoCountItem;
+    day: apiV3PoolInfoCountItem,
+    week: apiV3PoolInfoCountItem,
+    month: apiV3PoolInfoCountItem,
   // pooltype: PoolTypeItem[];
+    pooltype: "StablePool",
 
   // farmUpcomingCount: number;
   // farmOngoingCount: number;
   // farmFinishedCount: number;
+    farmUpcomingCount: 0,
+    farmOngoingCount: 0,
+    farmFinishedCount: 0,
 
   //   type: "Standard";
-  // lpMint: ApiV3Token;
+    type: "Standard",
+    lpMint: lpmint,
   // lpPrice: number;
+    lpPrice: rpcData.poolPrice,
   // lpAmount: number;
+    lpAmount: rpcData.lpAmount.toNumber,
   // config: ApiCpmmConfigV3;
+    config: apiCpmmConfigV3,
   }
 
   const poolInfo = poolInfo2;
