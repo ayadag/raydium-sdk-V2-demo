@@ -114,7 +114,7 @@ export const swap = async () => {
 
   // SOL - USDC pool
   // note: api doesn't support get devnet pool info
-  const data = await raydium.api.fetchPoolById({ ids: 'CnoKYnj3GNdTxQfKKBxmq33rJMShyt3eC1zWGgfptzkT' })
+  // const data = await raydium.api.fetchPoolById({ ids: 'CnoKYnj3GNdTxQfKKBxmq33rJMShyt3eC1zWGgfptzkT' })
   // const poolInfo = data[0] as ApiV3PoolInfoStandardItemCpmm
 
   // if (!isValidCpmm(poolInfo.programId)) throw new Error('target pool is not CPMM pool')
@@ -134,9 +134,9 @@ export const swap = async () => {
     name: 'WSOL',
     symbol: 'WSOL',
     // address: 'So11111111111111111111111111111111111111112',
-    address: `${rpcData.mintA.toString}`,
+    address: `${rpcData.mintA.toBase58}`,
     // programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-    programId: `${rpcData.mintProgramA.toString}`,
+    programId: `${rpcData.mintProgramA.toBase58}`,
     // decimals: 9,
     decimals: rpcData.mintDecimalA,
     logoURI: 'https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png',
@@ -149,9 +149,9 @@ export const swap = async () => {
     name: 'SALD',
     symbol: 'SALD',
     // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
-    address: `${rpcData.mintB.toString}`,
+    address: `${rpcData.mintB.toBase58}`,
     // programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
-    programId: `${rpcData.mintProgramB.toString}`,
+    programId: `${rpcData.mintProgramB.toBase58}`,
     // decimals: 9,
     decimals: rpcData.mintDecimalB,
     logoURI: '',
@@ -164,7 +164,7 @@ export const swap = async () => {
     name: '',
     symbol: '',
     // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
-    address: `${rpcData.mintLp.toString}`,
+    address: `${rpcData.mintLp.toBase58}`,
     // programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     programId: tokenProgram,
     // decimals: 9,
@@ -216,7 +216,7 @@ export const swap = async () => {
 // }
 
   const apiCpmmConfigV3: ApiCpmmConfigV3 ={
-    id: `${rpcData.configId.toString}`,//Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK
+    id: `${rpcData.configId.toBase58}`,//Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK
     index: rpcData.configInfo!.index,
     protocolFeeRate: Number(rpcData.configInfo!.protocolFeeRate.toNumber),
     tradeFeeRate: Number(rpcData.configInfo!.tradeFeeRate.toNumber),
