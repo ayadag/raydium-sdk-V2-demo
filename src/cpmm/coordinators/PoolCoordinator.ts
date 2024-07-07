@@ -40,12 +40,15 @@ export class PoolCoordinator {
 
     //static async fetchPage(connection: web3.Connection, page: number, perPage: number): Promise<Movie[]> {
     static async fetchPage(connection: web3.Connection, page: number, perPage: number): Promise<any> {
+        if (this.accounts.length === 0) {
+            await this.prefetchAccounts(connection)
+        }
         const accountsToFetch = this.accounts.slice((page-1)*perPage, page*perPage);
-    const accountInfos = await connection.getMultipleAccountsInfo(accountsToFetch);
-    const poolsWithNulls = accountInfos.reduce((accum: any, account) => {
-        const pool = account
+        const accountInfos = await connection.getMultipleAccountsInfo(accountsToFetch);
+        const poolsWithNulls = accountInfos.reduce((accum: any[], account) => {
+            const pool = account
         
-        return [...accum, pool]
-    }, []);
+            return [...accum, pool]
+        }, []);
     }
 }

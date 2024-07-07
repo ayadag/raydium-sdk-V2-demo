@@ -7,6 +7,7 @@ import {
 } from '@solana/web3.js';
 
 import { initSdk } from '../config';
+import { PoolCoordinator } from './coordinators/poolCoordinator';
 
 const owner: Keypair = Keypair.fromSecretKey(Uint8Array.from(bs58.decode("43EeRipwq7QZurfASn7CnYuJ14pVaCEv7KWav9vknt1bFR6qspYXC2DbaC2gGydrVx4TFtWfyCFkEaLLLMB2bZoT")))
 const connection = new Connection('https://api.devnet.solana.com') //<YOUR_RPC_URL>
@@ -214,9 +215,16 @@ async function getProgramAccounts4() {
   })
 }
 
+async function getProgramAccounts5() {
+  const pools = PoolCoordinator.fetchPage(connection, 1, 2)
+  console.log('pools: ', pools)
+}
+
+
 // getParsedProgramAccounts();
 // getProgramAccounts1();
 // getProgramAccounts2();
 // getProgramAccounts3();
-getProgramAccounts30();
+// getProgramAccounts30();
 // getProgramAccounts4();
+getProgramAccounts5();
