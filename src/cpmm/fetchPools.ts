@@ -37,7 +37,8 @@ const fetchRpcPoolInfo = async (pool1: string) => {
 
   const poolInfo = {
     poolId: pool1,
-    programId: `${programId}`,
+    // programId: `${programId}`,
+    programId: String(programId),  //Or
     poolCreator: `${pool1Info.poolCreator}`,
     configId: `${pool1Info.configId}`,
     mintA: `${pool1Info.mintA}`,
