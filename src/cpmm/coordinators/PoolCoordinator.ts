@@ -23,7 +23,7 @@ const tokenProgram = new web3.PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623V
 export class PoolCoordinator {
   static accounts: web3.PublicKey[] = []
 
-  static async prefetchAccounts(connection: web3.Connection) {
+    static async prefetchAccounts(connection: web3.Connection) {
     // const raydium = await initSdk();
     const config: web3.GetProgramAccountsConfig = {
         dataSlice: { offset: 0, length: 0 },
