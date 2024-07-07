@@ -157,6 +157,31 @@ async function getProgramAccounts3() {
   console.log('deserializedObjects: ', deserializedObjects)
 }
 
+async function getProgramAccounts30() {
+  console.log('`${owner.publicKey}`',`${owner.publicKey}`);
+  const accountsWithoutData = await connection.getProgramAccounts(
+    programId,
+    {
+      dataSlice: { offset: 0, length: 0 },
+      filters: [
+        {
+          dataSize: 637  //637 byte(s)
+        },
+        // {
+        //   memcmp:
+        //     {
+        //       offset: 637,
+        //       bytes: `${owner.publicKey}`,
+        //     }
+        // }
+      ]
+    }
+  )
+  
+  const accountKeys = accountsWithoutData.map(account => account.pubkey);
+  console.log('accountKeys: ', accountKeys)
+}
+
 //fetch first 4 pool accounts info only (637 byte(s))
 async function getProgramAccounts4() {
   const raydium = await initSdk();
@@ -189,33 +214,9 @@ async function getProgramAccounts4() {
   })
 }
 
-async function getProgramAccounts40() {
-  console.log('`${owner.publicKey}`',`${owner.publicKey}`);
-  const accountsWithoutData = await connection.getProgramAccounts(
-    programId,
-    {
-      dataSlice: { offset: 0, length: 0 },
-      filters: [
-        {
-          dataSize: 637  //637 byte(s)
-        },
-        {
-          memcmp:
-            {
-              offset: 642,
-              bytes: `${owner.publicKey}`,
-            }
-        }
-      ]
-    }
-  )
-  
-  const accountKeys = accountsWithoutData.map(account => account.pubkey);
-  console.log('accountKeys: ', accountKeys)
-}
-
 // getParsedProgramAccounts();
 // getProgramAccounts1();
 // getProgramAccounts2();
 // getProgramAccounts3();
-getProgramAccounts4();
+getProgramAccounts30();
+// getProgramAccounts4();
