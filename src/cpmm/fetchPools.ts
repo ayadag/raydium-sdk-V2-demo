@@ -220,11 +220,49 @@ async function getProgramAccounts5() {
   console.log('pools: ', pools)
 }
 
+//fetch with pages
+async function getProgramAccounts6(connection: Connection, page: number, perPage: number) {
+  const raydium = await initSdk();
+  const accountsWithoutData = await connection.getProgramAccounts(
+    programId,
+    {
+      dataSlice: { offset: 0, length: 0 },
+      filters: [
+        {
+          dataSize: 637  //637 byte(s)
+        }
+      ]
+    }
+  )
+  
+  const accountKeys = accountsWithoutData.map(account => account.pubkey)
+  // console.log('accountKeys: ', accountKeys)
 
+  const paginatedKeys = accountKeys.slice((page-1)*perPage, page*perPage)  //slect only first 5 accounts
+  
+  // paginatedKeys.forEach((progId) => {
+  //   // const res = await raydium.cpmm.getRpcPoolInfos([`${progId}`])
+  //   // const res = await raydium.cpmm.getRpcPoolInfos([`${progId}`])
+  //   // const pool1Info = res[`${progId}`]
+
+  //   // console.log('SOL-RAY pool price:', pool1Info.poolPrice)
+  //   // console.log('cpmm pool infos:', res)
+  //   fetchRpcPoolInfo(`${progId}`);
+  //   // fetchRpcPoolInfo2(`${progId}`);  //cpmm pool infos: undefined
+  // })
+  return paginatedKeys
+}
+
+async function getProgramAccounts7() {
+  const pools = await getProgramAccounts6(connection, 1, 2);  //page 1 with 2 items
+  console.log('pools: ', pools)
+}
 // getParsedProgramAccounts();
 // getProgramAccounts1();
 // getProgramAccounts2();
 // getProgramAccounts3();
 // getProgramAccounts30();
 // getProgramAccounts4();
-getProgramAccounts5();
+// getProgramAccounts5();
+
+getProgramAccounts7();
