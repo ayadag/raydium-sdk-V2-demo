@@ -258,9 +258,13 @@ async function getProgramAccounts7() {
   const poolsM: any[] = [];
   const pools = await getProgramAccounts6(connection, 1, 2);  //page 1 with 2 items
   // console.log('pools: ', pools)
-  pools.map((pool) =>{
-    fetchRpcPoolInfo(String(pool)).then(res => poolsM.push(res))
-  })
+  // pools.map((pool) =>{
+  //   fetchRpcPoolInfo(String(pool)).then(res => poolsM.push(res))
+  // })
+
+  for (let index = 0; index < pools.length; index++) {
+    await fetchRpcPoolInfo(String(pools[index])).then(res => poolsM.push(res))
+  }
   console.log('poolsM: ', poolsM)
 }
 // getParsedProgramAccounts();
