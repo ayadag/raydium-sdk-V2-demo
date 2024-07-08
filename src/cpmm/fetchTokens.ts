@@ -41,7 +41,7 @@ async function Token() {
     // const umi = createUmi('https://api.devnet.solana.com', 'processed')
     // Use the RPC endpoint of your choice.
     const umi = createUmi('https://api.devnet.solana.com').use(mplTokenMetadata())
-    const mint: PublicKey ={};
+    const mint:PublicKey = 'mmnj';
     const asset = await fetchDigitalAsset(umi, mint) 
 }
 
