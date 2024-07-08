@@ -1,17 +1,45 @@
-// import splToken from '@solana/spl-token';
-// import { Metaplex } from '@metaplex-foundation/js';
+// // import splToken from '@solana/spl-token';
+// // import { Metaplex } from '@metaplex-foundation/js';
+// import {
+//   deprecated,
+//   Metadata,
+// } from '@metaplex-foundation/mpl-token-metadata-2';  //version 2.0.0
+// import {
+//   Connection,
+//   PublicKey,
+// } from '@solana/web3.js';
+
+// // import  deprecated from "@metaplex-foundation/mpl-token-metadata";
+// // const splToken = require('@solana/spl-token');
+// // const { Metadata, deprecated } = require('@metaplex-foundation/mpl-token-metadata');
+
+import { web3 } from '@coral-xyz/anchor';
 import {
-  deprecated,
+  Edition,
+  fetchDigitalAsset,
+  MasterEdition,
   Metadata,
 } from '@metaplex-foundation/mpl-token-metadata';
-import {
-  Connection,
-  PublicKey,
-} from '@solana/web3.js';
+import { Mint } from '@metaplex-foundation/mpl-toolbox';
+import { PublicKey } from '@metaplex-foundation/umi';
+import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 
-// import  deprecated from "@metaplex-foundation/mpl-token-metadata";
-// const splToken = require('@solana/spl-token');
-// const { Metadata, deprecated } = require('@metaplex-foundation/mpl-token-metadata');
+export type DigitalAsset = {
+    publicKey: PublicKey
+    mint: Mint
+    metadata: Metadata
+    edition?:
+      | ({ isOriginal: true } & MasterEdition)
+      | ({ isOriginal: false } & Edition)
+  }
+
+
+async function Token() {
+    const mint = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
+    const umi = createUmi('https://api.devnet.solana.com', 'processed')
+
+    const asset = await fetchDigitalAsset(umi, mint) 
+}
 
 async function Tokens(listType: string, page: number, perPage: number) {
     // const tokensList = await getTokenList('strict');
@@ -24,66 +52,66 @@ async function Tokens(listType: string, page: number, perPage: number) {
     console.log('tokens: ', tokens)
 }
 
-async function TokenDev(){
-    const connection = new Connection('https://api.devnet.solana.com'); //<YOUR_RPC_URL>
-    // const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
-    const mintAddress = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');//SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
+// async function TokenDev(){
+//     const connection = new Connection('https://api.devnet.solana.com'); //<YOUR_RPC_URL>
+//     // const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
+//     const mintAddress = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');//SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
 
-    // const mintInfo = await splToken.getMint(connection, mintAddress);
-    // console.log("Decimals: " + mintInfo.decimals);
-    // console.log("Supply: " + mintInfo.supply);
+//     // const mintInfo = await splToken.getMint(connection, mintAddress);
+//     // console.log("Decimals: " + mintInfo.decimals);
+//     // console.log("Supply: " + mintInfo.supply);
 
-    // const metaplex = Metaplex.make(connection);
-    // const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });  //V1
-    const metadataPda = await deprecated.Metadata.getPDA(mintAddress);  //V2
-    // // let metadata: Metadata;
-    let account = await Metadata.fromAccountAddress(connection, metadataPda);
-    // console.log('account: ', account)
-    // console.log('String(account.data.name): ', String(account.data.name))
+//     // const metaplex = Metaplex.make(connection);
+//     // const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });  //V1
+//     const metadataPda = await deprecated.Metadata.getPDA(mintAddress);  //V2
+//     // // let metadata: Metadata;
+//     let account = await Metadata.fromAccountAddress(connection, metadataPda);
+//     // console.log('account: ', account)
+//     // console.log('String(account.data.name): ', String(account.data.name))
 
-    const name= String(account.data.name);
-    const symbol= `${account.data.symbol}`;
-    const uri= account.data.uri as string
+//     const name= String(account.data.name);
+//     const symbol= `${account.data.symbol}`;
+//     const uri= account.data.uri as string
 
-    // const data= {
-    //     name: name,
-    //     symbol: symbol,
-    //     uri: uri,
-    // }
-    // console.log('data: ', name)
+//     // const data= {
+//     //     name: name,
+//     //     symbol: symbol,
+//     //     uri: uri,
+//     // }
+//     // console.log('data: ', name)
 
-    const tokenData = {
-        updateAuthority: String(account.updateAuthority),
-        mint: String(account.mint),
-        name: name,
-        symbol: symbol,
-        uri: uri,
-        // data: {
-        //         name: name,
-        //         symbol: symbol,
-        //         uri: uri,
-        // }
-        // data: {
-        //     name: String(account.data.name),
-        //     symbol: String(account.data.symbol),
-        //     uri: String(account.data.uri)
-        // }
-    }
-    console.log('tokenData: ', tokenData)
+//     const tokenData = {
+//         updateAuthority: String(account.updateAuthority),
+//         mint: String(account.mint),
+//         name: name,
+//         symbol: symbol,
+//         uri: uri,
+//         // data: {
+//         //         name: name,
+//         //         symbol: symbol,
+//         //         uri: uri,
+//         // }
+//         // data: {
+//         //     name: String(account.data.name),
+//         //     symbol: String(account.data.symbol),
+//         //     uri: String(account.data.uri)
+//         // }
+//     }
+//     console.log('tokenData: ', tokenData)
 
-    // try {
-    //     const mintInfo = await splToken.getMint(connection, mintAddress);
-    //     console.log("Decimals: " + mintInfo.decimals);
-    //     console.log("Supply: " + mintInfo.supply);
+//     // try {
+//     //     const mintInfo = await splToken.getMint(connection, mintAddress);
+//     //     console.log("Decimals: " + mintInfo.decimals);
+//     //     console.log("Supply: " + mintInfo.supply);
 
-    //     let metadataPda = await deprecated.Metadata.getPDA(mintAddress);
-    //     let metdadataContent =  await Metadata.fromAccountAddress(connection, metadataPda);
-    //     console.log("Metadata:", metdadataContent.pretty());
+//     //     let metadataPda = await deprecated.Metadata.getPDA(mintAddress);
+//     //     let metdadataContent =  await Metadata.fromAccountAddress(connection, metadataPda);
+//     //     console.log("Metadata:", metdadataContent.pretty());
 
-    // } catch (err) {
-    //     console.error("Error: ", err);
-    // }
-}
+//     // } catch (err) {
+//     //     console.error("Error: ", err);
+//     // }
+// }
 
 async function getTokenList(list: string) {
     // let listType: 'strict' | 'all';
@@ -124,4 +152,4 @@ function getListType(list:string) {
 // Tokens('strict', 1, 4); //listType: string, page: number, perPage: number
 // Tokens('all', 1, 4); //listType: string, page: number, perPage: number
 
-TokenDev();
+// TokenDev();
