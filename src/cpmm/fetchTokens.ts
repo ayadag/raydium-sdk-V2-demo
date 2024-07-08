@@ -31,9 +31,10 @@ import { fromWeb3JsPublicKey } from '@metaplex-foundation/umi-web3js-adapters';
 //   }
 
 
-async function Token() {
+async function Token(tokenId: string) {
     // const token = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
-    const token = new web3.PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); //SOL
+    // const token = new web3.PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); //SALD
+    const token = new web3.PublicKey(tokenId); //SALD
     // const umi = createUmi('https://api.devnet.solana.com', 'processed')
     // Use the RPC endpoint of your choice.
     // const umi = createUmi('https://api.devnet.solana.com').use(mplTokenMetadata())
@@ -168,7 +169,7 @@ function getListType(list:string) {
 // Tokens('all', 1, 4); //listType: string, page: number, perPage: number
 
 // TokenDev();
-Token();
+Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
 
 
 
