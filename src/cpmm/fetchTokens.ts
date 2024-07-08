@@ -23,7 +23,7 @@ async function Tokens(listType: string, page: number, perPage: number) {
     console.log('tokens: ', tokens)
 }
 
-async function Token(){
+async function TokenDev(){
     const connection = new Connection('https://api.devnet.solana.com'); //<YOUR_RPC_URL>
     const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
 
@@ -35,14 +35,33 @@ async function Token(){
     // console.log('account: ', account)
     // console.log('String(account.data.name): ', String(account.data.name))
 
+    const name= String(account.data.name);
+    const symbol= `${account.data.symbol}`;
+    const uri= account.data.uri as string
+
+    // const data= {
+    //     name: name,
+    //     symbol: symbol,
+    //     uri: uri,
+    // }
+    // console.log('data: ', name)
+
     const tokenData = {
         updateAuthority: String(account.updateAuthority),
         mint: String(account.mint),
-        data: {
-            name: String(account.data.name),
-            symbol: String(account.data.symbol),
-            uri: String(account.data.uri)
-        }
+        name: name,
+        symbol: symbol,
+        uri: uri,
+        // data: {
+        //         name: name,
+        //         symbol: symbol,
+        //         uri: uri,
+        // }
+        // data: {
+        //     name: String(account.data.name),
+        //     symbol: String(account.data.symbol),
+        //     uri: String(account.data.uri)
+        // }
     }
     console.log('tokenData: ', tokenData)
 
@@ -99,4 +118,4 @@ function getListType(list:string) {
 // Tokens('strict', 1, 4); //listType: string, page: number, perPage: number
 // Tokens('all', 1, 4); //listType: string, page: number, perPage: number
 
-Token();
+TokenDev();
