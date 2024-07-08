@@ -1,3 +1,15 @@
+import {
+  Connection,
+  PublicKey,
+} from '@solana/web3.js';
+
+// import { splTo } from '@solana/spl-token';
+
+// import { Metaplex } from '@metaplex-foundation/js';
+// import { Metadata, deprecated } from "@metaplex-foundation/mpl-token-metadata";
+const splToken = require('@solana/spl-token');
+const { Metadata, deprecated } = require('@metaplex-foundation/mpl-token-metadata');
+
 async function Tokens(listType: string, page: number, perPage: number) {
     // const tokensList = await getTokenList('strict');
     // const tokens = await getTokenList('all');
@@ -6,6 +18,30 @@ async function Tokens(listType: string, page: number, perPage: number) {
     if(!tokensList){return console.error('!tokenList')}
     const tokens = tokensList.slice((page-1)*perPage, page*perPage);
     console.log('tokens: ', tokens)
+}
+
+async function Token(){
+    const connection = new Connection('https://api.devnet.solana.com'); //<YOUR_RPC_URL>
+    const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
+
+    // const metaplex = Metaplex.make(connection);
+    // const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });
+
+    // // let metadata: Metadata;
+    // let account = await Metadata.fromAccountAddress(connection, metadataPda);
+
+    try {
+        const mintInfo = await splToken.getMint(connection, mintAddress);
+        console.log("Decimals: " + mintInfo.decimals);
+        console.log("Supply: " + mintInfo.supply);
+
+        let metadataPda = await deprecated.Metadata.getPDA(mintAddress);
+        let metdadataContent =  await Metadata.fromAccountAddress(connection, metadataPda);
+        console.log("Metadata:", metdadataContent.pretty());
+
+    } catch (err) {
+        console.error("Error: ", err);
+    }
 }
 
 async function getTokenList(list: string) {
@@ -45,4 +81,6 @@ function getListType(list:string) {
 }
 
 // Tokens('strict', 1, 4); //listType: string, page: number, perPage: number
-Tokens('all', 1, 4); //listType: string, page: number, perPage: number
+// Tokens('all', 1, 4); //listType: string, page: number, perPage: number
+
+Token();

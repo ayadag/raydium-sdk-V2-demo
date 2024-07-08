@@ -5,6 +5,8 @@
   "license": "GPL-3.0",
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
+    "@metaplex-foundation/js": "^0.20.1",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
     "@raydium-io/raydium-sdk-v2": "0.1.19-alpha",
     "@solana/spl-token": "^0.4.6",
     "@types/jsonfile": "^6.1.4",
