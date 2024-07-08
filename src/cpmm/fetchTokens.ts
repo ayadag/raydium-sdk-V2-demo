@@ -25,7 +25,8 @@ async function Tokens(listType: string, page: number, perPage: number) {
 
 async function TokenDev(){
     const connection = new Connection('https://api.devnet.solana.com'); //<YOUR_RPC_URL>
-    const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
+    // const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
+    const mintAddress = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');//SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
 
     const metaplex = Metaplex.make(connection);
     // const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });  //V1
