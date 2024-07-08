@@ -13,27 +13,22 @@
 // // const splToken = require('@solana/spl-token');
 // // const { Metadata, deprecated } = require('@metaplex-foundation/mpl-token-metadata');
 import { web3 } from '@coral-xyz/anchor';
-import {
-  Edition,
-  fetchDigitalAsset,
-  MasterEdition,
-  Metadata,
-} from '@metaplex-foundation/mpl-token-metadata';
-import { Mint } from '@metaplex-foundation/mpl-toolbox';
-import { PublicKey } from '@metaplex-foundation/umi';
+import { fetchDigitalAsset } from '@metaplex-foundation/mpl-token-metadata';
+// import { Mint } from '@metaplex-foundation/mpl-toolbox';
+// import { PublicKey } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { fromWeb3JsPublicKey } from '@metaplex-foundation/umi-web3js-adapters';
 
 // import { mplTokenMetadata } from '@metaplex-foundation/mpl-token-metadata'
 
-export type DigitalAsset = {
-    publicKey: PublicKey
-    mint: Mint
-    metadata: Metadata
-    edition?:
-      | ({ isOriginal: true } & MasterEdition)
-      | ({ isOriginal: false } & Edition)
-  }
+// export type DigitalAsset = {
+//     publicKey: PublicKey
+//     mint: Mint
+//     metadata: Metadata
+//     edition?:
+//       | ({ isOriginal: true } & MasterEdition)
+//       | ({ isOriginal: false } & Edition)
+//   }
 
 
 async function Token() {
