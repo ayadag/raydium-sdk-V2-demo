@@ -1,5 +1,5 @@
-// import { splTo } from '@solana/spl-token';
-import { Metaplex } from '@metaplex-foundation/js';
+// import splToken from '@solana/spl-token';
+// import { Metaplex } from '@metaplex-foundation/js';
 import {
   deprecated,
   Metadata,
@@ -17,6 +17,7 @@ async function Tokens(listType: string, page: number, perPage: number) {
     // const tokensList = await getTokenList('strict');
     // const tokens = await getTokenList('all');
     // console.log('tokens: ', tokensList)
+
     const tokensList = await getTokenList(listType);
     if(!tokensList){return console.error('!tokenList')}
     const tokens = tokensList.slice((page-1)*perPage, page*perPage);
@@ -28,7 +29,11 @@ async function TokenDev(){
     // const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
     const mintAddress = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');//SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
 
-    const metaplex = Metaplex.make(connection);
+    // const mintInfo = await splToken.getMint(connection, mintAddress);
+    // console.log("Decimals: " + mintInfo.decimals);
+    // console.log("Supply: " + mintInfo.supply);
+
+    // const metaplex = Metaplex.make(connection);
     // const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });  //V1
     const metadataPda = await deprecated.Metadata.getPDA(mintAddress);  //V2
     // // let metadata: Metadata;
