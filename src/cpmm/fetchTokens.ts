@@ -1,6 +1,9 @@
 // import { splTo } from '@solana/spl-token';
 import { Metaplex } from '@metaplex-foundation/js';
-import { Metadata } from '@metaplex-foundation/mpl-token-metadata';
+import {
+  deprecated,
+  Metadata,
+} from '@metaplex-foundation/mpl-token-metadata';
 import {
   Connection,
   PublicKey,
@@ -25,10 +28,23 @@ async function Token(){
     const mintAddress = new PublicKey('So11111111111111111111111111111111111111112'); //SOL
 
     const metaplex = Metaplex.make(connection);
-    const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });
+    // const metadataPda = metaplex.nfts().pdas().metadata({ mint: mintAddress });  //V1
+    const metadataPda = await deprecated.Metadata.getPDA(mintAddress);  //V2
     // // let metadata: Metadata;
     let account = await Metadata.fromAccountAddress(connection, metadataPda);
-    console.log('account: ', account)
+    // console.log('account: ', account)
+    // console.log('String(account.data.name): ', String(account.data.name))
+
+    const tokenData = {
+        updateAuthority: String(account.updateAuthority),
+        mint: String(account.mint),
+        data: {
+            name: String(account.data.name),
+            symbol: String(account.data.symbol),
+            uri: String(account.data.uri)
+        }
+    }
+    console.log('tokenData: ', tokenData)
 
     // try {
     //     const mintInfo = await splToken.getMint(connection, mintAddress);
