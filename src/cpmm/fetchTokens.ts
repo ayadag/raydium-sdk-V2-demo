@@ -13,16 +13,18 @@
 // // const splToken = require('@solana/spl-token');
 // // const { Metadata, deprecated } = require('@metaplex-foundation/mpl-token-metadata');
 
-import { web3 } from '@coral-xyz/anchor';
 import {
   Edition,
   fetchDigitalAsset,
   MasterEdition,
   Metadata,
+  mplTokenMetadata,
 } from '@metaplex-foundation/mpl-token-metadata';
 import { Mint } from '@metaplex-foundation/mpl-toolbox';
 import { PublicKey } from '@metaplex-foundation/umi';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
+
+// import { mplTokenMetadata } from '@metaplex-foundation/mpl-token-metadata'
 
 export type DigitalAsset = {
     publicKey: PublicKey
@@ -35,9 +37,11 @@ export type DigitalAsset = {
 
 
 async function Token() {
-    const mint = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
-    const umi = createUmi('https://api.devnet.solana.com', 'processed')
-
+    // const mint = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
+    // const umi = createUmi('https://api.devnet.solana.com', 'processed')
+    // Use the RPC endpoint of your choice.
+    const umi = createUmi('https://api.devnet.solana.com').use(mplTokenMetadata())
+    const mint: PublicKey ={};
     const asset = await fetchDigitalAsset(umi, mint) 
 }
 
