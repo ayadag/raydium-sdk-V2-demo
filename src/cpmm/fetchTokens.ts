@@ -45,7 +45,20 @@ async function Token() {
     const umi = createUmi('https://api.devnet.solana.com')
     const mint = fromWeb3JsPublicKey(token);
     const asset = await fetchDigitalAsset(umi, mint) 
-    console.log('asset: ', asset)
+    // console.log('asset: ', asset);
+    const tokenData = {
+      publicKey: asset.publicKey,
+      owner: asset.mint.header.owner,
+      mintAuthority: asset.mint.mintAuthority,
+      updateAuthority: asset.metadata.updateAuthority,
+      name: asset.metadata.name,
+      symbol: asset.metadata.symbol,
+      uri: asset.metadata.uri,
+      decimals: asset.mint.decimals,
+      supply: asset.mint.supply,
+      executable: asset.mint.header.executable,
+    }
+    console.log('tokenData: ', tokenData)
 }
 
 async function Tokens(listType: string, page: number, perPage: number) {
@@ -211,4 +224,20 @@ Token();
 //     collectionDetails: { __option: 'None' },
 //     programmableConfig: { __option: 'None' }
 //   }
+// }
+
+// tokenData:  {
+//   publicKey: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+//   owner: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+//   mintAuthority: {
+//     __option: 'Some',
+//     value: 'hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus'
+//   },
+//   updateAuthority: 'hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus',
+//   name: 'SALD',
+//   symbol: 'SALD',
+//   uri: '',
+//   decimals: 9,
+//   supply: 1000000000000000000n,
+//   executable: false
 // }
