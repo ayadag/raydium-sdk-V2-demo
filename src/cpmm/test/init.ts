@@ -42,7 +42,8 @@ const provider = new AnchorProvider(connection, wallet, {
 setProvider(provider);
 const program = new Program<RaydiumCpSwap>(
     IDL,
-    new PublicKey("y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe"),
+    // new PublicKey("y14apbXKQPC257fK2r6mf6X1m6uYXtXjRyKmiU8rJJe"),
+    new PublicKey("97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo"),//97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo
     provider,
 );
 
@@ -52,7 +53,7 @@ const confirmOptions = {
     skipPreflight: false,
 }
 // const configAddress = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
-const configAddress1 = new PublicKey('A2p4a3jJq3BoC5Bjgr3wPzvrCKBDjRMWbHZLDn9W98ed');
+const configAddress1 = new PublicKey('Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK');//Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZWkK
 
 // const token0 = new PublicKey('So11111111111111111111111111111111111111112');
 // const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
@@ -68,6 +69,22 @@ const token0 = new PublicKey('715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3');
 const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 const token1 = new PublicKey('974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q');
 const token1Program = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
+
+// const token0 = new PublicKey('So11111111111111111111111111111111111111112');
+// const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+// const token1 = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
+// const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+
+const mintA = {
+  address: 'So11111111111111111111111111111111111111112',
+  programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  decimals: 9,
+} 
+const mintB = {
+  address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+  programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  decimals: 9,
+} 
 
 const initAmount: { initAmount0: BN; initAmount1: BN } = {
     initAmount0: new BN(10000000000),
@@ -195,24 +212,28 @@ async function init2() {
 // }
 
 async function init() {
+  try {
     const{ poolAddress, poolState } = await initialize2(
-        program, 
-        owner.payer, 
-        configAddress1, 
-        token0, 
-        token0Program, 
-        token1, 
-        token1Program, 
-        confirmOptions,
-        initAmount,
+      program, 
+      owner.payer, 
+      configAddress1, 
+      token0, 
+      token0Program, 
+      token1, 
+      token1Program, 
+      confirmOptions,
+      initAmount,
     );
     console.log('poolAddress: ',poolAddress);
     console.log('poolState: ',poolState)
+  } catch (error) {
+    console.log('Error: ', error)
+  } 
 }
 
 // KeypairGen();
 // preSetInit();
 // preSetInit2();
-init2();
+// init2();
 // setInit();
-// init();
+init();

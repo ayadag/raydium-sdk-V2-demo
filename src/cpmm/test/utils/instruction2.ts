@@ -299,7 +299,8 @@ export async function setupInitializeTest2(
       initAmount1: new BN(2),
     },
     // createPoolFee = new PublicKey("G11FKBRaAkHAKuLCgLM6K6NUc9rTjPAznRCjZifrTQe2")  //devnet fee account
-    createPoolFee = new PublicKey("HxKiEkhNNcifMj3Jz22QbXcD7mNg3PCm1cNe3WYjYeR9")  //devnet fee account
+    // createPoolFee = new PublicKey("HxKiEkhNNcifMj3Jz22QbXcD7mNg3PCm1cNe3WYjYeR9")  //devnet fee account
+    createPoolFee = new PublicKey("DWSb1UKCzFBAu9rNccuUqheEG46VdrLHNhBVGKA4xyqh")//DWSb1UKCzFBAu9rNccuUqheEG46VdrLHNhBVGKA4xyqh
     
   ) {
     const [auth] = await getAuthAddress(program.programId);

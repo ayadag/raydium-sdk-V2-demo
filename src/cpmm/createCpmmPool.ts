@@ -8,7 +8,8 @@ import {
 } from '../config';
 
 export const createPool = async () => {
-  const raydium = await initSdk({ loadToken: true })
+  // const raydium = await initSdk({ loadToken: true })
+  const raydium = await initSdk({ loadToken: false }) //ayad
 
   // check token list here: https://api-v3.raydium.io/mint/list
   // RAY
