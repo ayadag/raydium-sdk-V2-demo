@@ -5,7 +5,7 @@ import { PublicKey } from '@solana/web3.js';
 import {
   initSdk,
   txVersion,
-} from '../config';
+} from '../config-copy';
 
 export const createPool = async () => {
   // const raydium = await initSdk({ loadToken: true })
@@ -17,6 +17,7 @@ export const createPool = async () => {
   // USDC
   // const mintB = await raydium.token.getTokenInfo('So11111111111111111111111111111111111111112')
 
+
   /**
    * you also can provide mint info directly like below, then don't have to call token info api
    *  {
@@ -25,13 +26,25 @@ export const createPool = async () => {
       decimals: 6,
     } 
    */
+  const SALD = 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb';
+  const SALD2 = 'DYd2TX2skjBzSKdcciMZpPKXh1nV75vm9jSyEtws3Vwb';
+  const SALD3 = 'AZDzcSuVg69kjoSCM97BoL8wUkMKTzu3XwVgxzW8RTr8';
+  const SALD4 = 'uBAsEVJJh8GKj6m5jXqLzWkB4PuysMpxmwFxDDk5Qdz';
+  const SALD5 = '9Psbfd6mLzFZmCfqZm1HFTx56TyzJx5SeMRhGJosmig1';
+  
+
   const mintA = {
-    address: 'So11111111111111111111111111111111111111112',
+    // address: 'So11111111111111111111111111111111111111112',
+    address: SALD,
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     decimals: 9,
   } 
   const mintB = {
-    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    // address: SALD2,
+    // address: SALD3,
+    address: SALD4,
+    // address: SALD5,
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     decimals: 9,
   } 
@@ -97,3 +110,13 @@ export const createPool = async () => {
 
 /** uncomment code below to execute */
 createPool();
+
+
+//poolId = '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV' SOL-SALD
+//poolId = 'D9D6MbfumK4wytuC1LKZC7tZATjSBP8KgS5QnrsXPrVn' SOL-SALD2
+//poolId = '34koEFQxfFjbeRTvxzbvGuUj78xSdLKdaKtf8kTd5yt5' SOL-SALD3
+//poolId = '9qVb7iFiAoTyFoEYM2ZSBULeHRvBYUhPkpswoESjyUZV' SOL-SALD4  //Error
+//poolId = 'FE18f8TPMSDa7HR5BRMs5XDRTW8tjjn5dQeuF12WPSKG' SOL-SALD5
+//poolId = '3umBnXCwPFQiWBjD4Y1RmsbB4yH92tDCzx7zDzHAXXfy' SALD-SALD2
+//poolId = '3KoaZu9J2XXRTvzsP3Z9kJfJQyM1rg1b17oVaLRk5d2v' SALD-SALD3
+//poolId = 'ESs8ScRG46urq4pDx9T4W8st8ixdwTCNJ69LJ6Qm8Xfd' SALD-SALD4
