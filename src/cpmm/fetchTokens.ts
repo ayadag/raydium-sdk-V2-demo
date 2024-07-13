@@ -169,7 +169,8 @@ function getListType(list:string) {
 // Tokens('all', 1, 4); //listType: string, page: number, perPage: number
 
 // TokenDev();
-Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
+// Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); SALD mint
+Token('6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS
 
 
 
