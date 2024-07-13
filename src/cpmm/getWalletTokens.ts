@@ -110,21 +110,95 @@ async function Token(tokenId: string) {
   console.log('tokenData: ', tokenData)
 }
 
-async function Token2(tokenId:string) {
+async function splToken(tokenId:string) {
   // Retrieve and log the metadata state
 const metadata = await getTokenMetadata(
   solanaConnection, // Connection instance
   new PublicKey(tokenId), // PubKey of the Mint Account
   'confirmed', // Commitment, can use undefined to use default
-  // TOKEN_2022_PROGRAM_ID,
-  TOKEN_PROGRAM_ID
+  // TOKEN_2022_PROGRAM_ID, //spl-2022 token
+  TOKEN_PROGRAM_ID, //spl toke
 )
 console.log('metadata: ', metadata)
 }
+async function spl2022Token(tokenId:string) {
+  // Retrieve and log the metadata state
+const metadata = await getTokenMetadata(
+  solanaConnection, // Connection instance
+  new PublicKey(tokenId), // PubKey of the Mint Account
+  'confirmed', // Commitment, can use undefined to use default
+  TOKEN_2022_PROGRAM_ID, //spl-2022 token
+  // TOKEN_PROGRAM_ID, //spl toke
+)
+console.log('metadata: ', metadata)
+}
+
+async function grtTokenList() {
+
+  // let tokens:any[];
+  async function getTokenAccounts(wallet: string, solanaConnection: Connection, dataSize: number) {
+    let tokens:any[];
+    const filters:GetProgramAccountsFilter[] = [
+      {
+        dataSize: dataSize,    //size of account (bytes) spl-token=165 spl-2022-token=182
+      },
+      {
+        memcmp: {
+          offset: 32,     //location of our query in the account (bytes)
+          bytes: wallet,  //our search criteria, a base58 encoded string
+        },            
+      }];
+  const accounts = await solanaConnection.getParsedProgramAccounts(
+      TOKEN_PROGRAM_ID, //new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+      {filters: filters}
+  );
+  // console.log(`Found ${accounts.length} spl token account(s) for wallet ${wallet}.`);
+  // accounts.forEach((account, i) => {
+  //     //Parse the account data
+  //     const parsedAccountInfo:any = account.account.data;
+  //     const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
+  //     const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
+  //     //Log results
+  //     // console.log(`Token Account No. ${i + 1}: ${account.pubkey.toString()}`);
+  //     // console.log(`--Token Mint: ${mintAddress}`);
+  //     // console.log(`--Token Balance: ${tokenBalance}`);
+  //     tokens.push(
+  //       {
+  //         address: account.pubkey.toString(),
+  //         mint: mintAddress,
+  //         balance: tokenBalance
+  //       }
+  //     )
+  // });
+
+  for (let index = 0; index < accounts.length; index++) {
+    const parsedAccountInfo:any = accounts[index].account.data;
+    const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
+    const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
+
+    tokens[index]= (
+      {
+        address: accounts[index].pubkey.toString(),
+        mint: mintAddress,
+        balance: tokenBalance,
+      }
+    )
+    // tokens[index] = (accounts[index]);
+    
+  }
+  console.log(String(tokens));
+  return tokens;
+  }
+  await getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165)
+  console.log(String(tokens));
+  
+}
+
 
 // console.log('<--spl tokens-->')
 // getTokenAccounts(walletToQuery,solanaConnection);
 // console.log('<--spl-2022 tokens-->')
 // getTokenAccounts2(walletToQuery,solanaConnection);
-// Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
-Token2('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb Aly mint jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
+// splToken('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
+// spl2022Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX')//SALD mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb Aly mint jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
+grtTokenList();
