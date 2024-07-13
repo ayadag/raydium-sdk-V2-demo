@@ -8,6 +8,12 @@ import web3, {
   PublicKey,
 } from '@solana/web3.js';
 
+type token = {
+  address: string,
+  mint: string,
+  balance: number,
+}
+
 // const rpcEndpoint = 'https://example.solana-mainnet.quiknode.pro/000000/';
 const rpcEndpoint = 'https://api.devnet.solana.com/';
 const solanaConnection = new Connection(rpcEndpoint);
@@ -134,7 +140,7 @@ console.log('metadata: ', metadata)
 }
 
 class getTokenList {
-  tokens: any;
+  tokens: token[];
   constructor(){
     // const tokens:any[];
   }
@@ -174,22 +180,23 @@ class getTokenList {
   //     )
   // });
 
-  for (let index = 0; index < accounts.length; index++) {
-    const parsedAccountInfo:any = accounts[index].account.data;
+  // for (let index = 0; index < accounts.length; index++) {
+    accounts.forEach((account, i) => {
+    const parsedAccountInfo:any = account.account.data;
     const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
     const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
 
-    this.tokens[index]= (
+    this.tokens.push(
       {
-        address: accounts[index].pubkey.toString(),
-        mint: mintAddress,
-        balance: tokenBalance,
+        address: String(account.pubkey.toString()),
+        mint: String(mintAddress),
+        balance: Number(tokenBalance),
       }
     )
     // tokens[index] = (accounts[index]);
-    
-  }
-  console.log(String(this.tokens));
+    console.log('${account.pubkey.toString()}: ', `${account.pubkey.toString()}`)
+  })
+  console.log(this.tokens);
   return this.tokens;
   }
   // await getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165)
@@ -206,6 +213,7 @@ class getTokenList {
 
 async function get() {
   const getTL = new getTokenList;
-  const list = await getTL.getTokenAccounts;
+  const list = await getTL.getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165);
+  console.log(list)
 }
 get();
