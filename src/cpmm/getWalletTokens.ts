@@ -133,11 +133,14 @@ const metadata = await getTokenMetadata(
 console.log('metadata: ', metadata)
 }
 
-async function grtTokenList() {
+class getTokenList {
+  tokens: any;
+  constructor(){
+    // const tokens:any[];
+  }
 
-  // let tokens:any[];
-  async function getTokenAccounts(wallet: string, solanaConnection: Connection, dataSize: number) {
-    let tokens:any[];
+  async getTokenAccounts(wallet: string, solanaConnection: Connection, dataSize: number) {
+    // let tokens:any[];
     const filters:GetProgramAccountsFilter[] = [
       {
         dataSize: dataSize,    //size of account (bytes) spl-token=165 spl-2022-token=182
@@ -176,7 +179,7 @@ async function grtTokenList() {
     const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
     const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
 
-    tokens[index]= (
+    this.tokens[index]= (
       {
         address: accounts[index].pubkey.toString(),
         mint: mintAddress,
@@ -186,14 +189,13 @@ async function grtTokenList() {
     // tokens[index] = (accounts[index]);
     
   }
-  console.log(String(tokens));
-  return tokens;
+  console.log(String(this.tokens));
+  return this.tokens;
   }
-  await getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165)
-  console.log(String(tokens));
+  // await getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165)
+  // console.log(String(tokens));
   
 }
-
 
 // console.log('<--spl tokens-->')
 // getTokenAccounts(walletToQuery,solanaConnection);
@@ -201,4 +203,9 @@ async function grtTokenList() {
 // getTokenAccounts2(walletToQuery,solanaConnection);
 // splToken('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
 // spl2022Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX')//SALD mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb Aly mint jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
-grtTokenList();
+
+async function get() {
+  const getTL = new getTokenList;
+  const list = await getTL.getTokenAccounts;
+}
+get();
