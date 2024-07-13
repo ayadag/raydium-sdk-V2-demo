@@ -11,6 +11,7 @@ import web3, {
 type token = {
   address: string,
   mint: string,
+  owner: string,
   balance: number,
 }
 
@@ -140,27 +141,30 @@ console.log('metadata: ', metadata)
 }
 
 class getTokenList {
-  tokens: token[];
-  constructor(){
+  tokens: token[]= [];
+  accounts: any[] = [];
+  constructor(accounts: any[]){
     // const tokens:any[];
+    this.accounts = accounts;
   }
 
-  async getTokenAccounts(wallet: string, solanaConnection: Connection, dataSize: number) {
-    // let tokens:any[];
-    const filters:GetProgramAccountsFilter[] = [
-      {
-        dataSize: dataSize,    //size of account (bytes) spl-token=165 spl-2022-token=182
-      },
-      {
-        memcmp: {
-          offset: 32,     //location of our query in the account (bytes)
-          bytes: wallet,  //our search criteria, a base58 encoded string
-        },            
-      }];
-  const accounts = await solanaConnection.getParsedProgramAccounts(
-      TOKEN_PROGRAM_ID, //new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
-      {filters: filters}
-  );
+//   async getTokenAccounts(wallet: string, solanaConnection: Connection, dataSize: number) {
+    async getTokenAccounts() {
+        // let tokens:any[];
+    // const filters:GetProgramAccountsFilter[] = [
+    //   {
+    //     dataSize: dataSize,    //size of account (bytes) spl-token=165 spl-2022-token=182
+    //   },
+    //   {
+    //     memcmp: {
+    //       offset: 32,     //location of our query in the account (bytes)
+    //       bytes: wallet,  //our search criteria, a base58 encoded string
+    //     },            
+    //   }];
+    // const accounts = await solanaConnection.getParsedProgramAccounts(
+    //   TOKEN_PROGRAM_ID, //new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+    //   {filters: filters}
+    // );
   // console.log(`Found ${accounts.length} spl token account(s) for wallet ${wallet}.`);
   // accounts.forEach((account, i) => {
   //     //Parse the account data
@@ -180,8 +184,9 @@ class getTokenList {
   //     )
   // });
 
-  // for (let index = 0; index < accounts.length; index++) {
-    accounts.forEach((account, i) => {
+  for (let index = 0; index < this.accounts.length; index++) {
+    // this.accounts.forEach((account, i) => {
+    const account = this.accounts[index] //for
     const parsedAccountInfo:any = account.account.data;
     const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
     const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
@@ -190,12 +195,14 @@ class getTokenList {
       {
         address: String(account.pubkey.toString()),
         mint: String(mintAddress),
+        owner: String(account.account.owner),
         balance: Number(tokenBalance),
       }
     )
     // tokens[index] = (accounts[index]);
-    console.log('${account.pubkey.toString()}: ', `${account.pubkey.toString()}`)
-  })
+    // console.log('${account.pubkey.toString()}: ', `${account.pubkey.toString()}`)
+  }
+//   )
   console.log(this.tokens);
   return this.tokens;
   }
@@ -204,16 +211,149 @@ class getTokenList {
   
 }
 
+async function get(wallet: string, solanaConnection: Connection, dataSize0: number, dataSize1: number) {
+    const filters0:GetProgramAccountsFilter[] = [
+        {
+          dataSize: dataSize0,    //size of account (bytes) spl-token=165 spl-2022-token=182
+        },
+        {
+          memcmp: {
+            offset: 32,     //location of our query in the account (bytes)
+            bytes: wallet,  //our search criteria, a base58 encoded string
+          },            
+    }];
+
+    const filters1:GetProgramAccountsFilter[] = [
+        {
+          dataSize: dataSize1,    //size of account (bytes) spl-token=165 spl-2022-token=182
+        },
+        {
+          memcmp: {
+            offset: 32,     //location of our query in the account (bytes)
+            bytes: wallet,  //our search criteria, a base58 encoded string
+          },            
+    }];
+
+    const accounts0 = await solanaConnection.getParsedProgramAccounts(
+        TOKEN_PROGRAM_ID, //new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+        {filters: filters0}
+    );
+    // console.log('accounts0: ', accounts0)
+    const accounts1 = await solanaConnection.getParsedProgramAccounts(
+        TOKEN_2022_PROGRAM_ID, //new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+        {filters: filters1}
+    );
+
+    const getTL0 = new getTokenList(accounts0);
+    // const list = await getTL.getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165);
+    const list0 = await getTL0.getTokenAccounts();
+
+    const getTL1 = new getTokenList(accounts1);
+    const list1 = await getTL1.getTokenAccounts();
+
+    const totalList = [...list0,...list1];
+    // console.log(totalList)
+    return totalList
+}
+
+
+
+async function getTokensL() {
+    let tokens: any[];
+    async function get0(wallet: string, solanaConnection: Connection, dataSize: number) {
+        const filters:GetProgramAccountsFilter[] = [
+            {
+              dataSize: dataSize,    //size of account (bytes) spl-token=165 spl-2022-token=182
+            },
+            {
+              memcmp: {
+                offset: 32,     //location of our query in the account (bytes)
+                bytes: wallet,  //our search criteria, a base58 encoded string
+              },            
+            }];
+        const accounts = await solanaConnection.getParsedProgramAccounts(
+            TOKEN_PROGRAM_ID, //new PublicKey("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA")
+            {filters: filters}
+        );
+        return accounts
+    }
+
+    async function getT0(accounts: any[]) {
+        for (let index = 0; index < accounts.length; index++) {
+            // this.accounts.forEach((account, i) => {
+            const account = accounts[index] //for
+            const parsedAccountInfo:any = account.account.data;
+            const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
+            const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
+        
+            tokens.push(
+              {
+                address: String(account.pubkey.toString()),
+                mint: String(mintAddress),
+                balance: Number(tokenBalance),
+              }
+            )
+            // tokens[index] = (accounts[index]);
+            console.log('${account.pubkey.toString()}: ', `${account.pubkey.toString()}`)
+          }
+        //   )
+        //   console.log('tokens: ', tokens);
+          return tokens;
+    }
+
+    const accounts = await get0('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    const tokensL = await getT0(accounts);
+    console.log(tokensL);
+    // return tokensL
+}
+
+async function metadata(tokenId:string, programId:string) {
+    // Retrieve and log the metadata state
+  const metadata = await getTokenMetadata(
+    solanaConnection, // Connection instance
+    new PublicKey(tokenId), // PubKey of the Mint Account
+    'confirmed', // Commitment, can use undefined to use default
+    // TOKEN_2022_PROGRAM_ID, //spl-2022 token
+    // TOKEN_PROGRAM_ID, //spl toke
+    new PublicKey(programId),
+  )
+  console.log('metadata: ', metadata)
+}
+
+class geturi {
+    tList: any[] = [];
+    async tLF(){
+        return await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    }
+    // totalList = await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    // totalList = await this.tLF();
+    async getU0() {
+        const totalList = await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+
+        for (let index = 0; index < totalList.length; index++) {
+            // this.tList.push(totalList[index], await Token(totalList[index].mint));     
+            this.tList.push(totalList[index], await metadata(totalList[index].mint, totalList[index].owner));
+        }
+        return this.tList;
+    }
+
+    // const TList = await getU0();
+    // console.log(TList);
+}
+async function getUri() {
+    const gU = new geturi();
+    const tL = await gU.getU0();
+    console.log(tL)
+}
+
 // console.log('<--spl tokens-->')
 // getTokenAccounts(walletToQuery,solanaConnection);
 // console.log('<--spl-2022 tokens-->')
 // getTokenAccounts2(walletToQuery,solanaConnection);
 // splToken('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
 // spl2022Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX')//SALD mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb Aly mint jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
-
-async function get() {
-  const getTL = new getTokenList;
-  const list = await getTL.getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165);
-  console.log(list)
-}
-get();
+// get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+// getTokensL();
+// Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
+// Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
+getUri();
