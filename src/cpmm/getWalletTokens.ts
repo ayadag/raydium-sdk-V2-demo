@@ -1,5 +1,8 @@
-// import { TOKEN_PROGRAM_ID } from '@solana/spl-token';
-import {
+import { fetchDigitalAsset } from '@metaplex-foundation/mpl-token-metadata';
+import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
+import { fromWeb3JsPublicKey } from '@metaplex-foundation/umi-web3js-adapters';
+import { getTokenMetadata } from '@solana/spl-token';
+import web3, {
   Connection,
   GetProgramAccountsFilter,
   PublicKey,
@@ -79,7 +82,49 @@ async function getTokenAccounts2(wallet: string, solanaConnection: Connection) {
     });
 }
 
+async function Token(tokenId: string) {
+  // const token = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
+  // const token = new web3.PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); //SALD
+  const token = new web3.PublicKey(tokenId); //SALD
+  // const umi = createUmi('https://api.devnet.solana.com', 'processed')
+  // Use the RPC endpoint of your choice.
+  // const umi = createUmi('https://api.devnet.solana.com').use(mplTokenMetadata())
+  const umi = createUmi('https://api.devnet.solana.com')
+  // umi.programs.bind('splToken', 'splToken2022');
+
+  const mint = fromWeb3JsPublicKey(token);
+  const asset = await fetchDigitalAsset(umi, mint) 
+  // console.log('asset: ', asset);
+  const tokenData = {
+    publicKey: asset.publicKey,
+    owner: asset.mint.header.owner,
+    mintAuthority: asset.mint.mintAuthority,
+    updateAuthority: asset.metadata.updateAuthority,
+    name: asset.metadata.name,
+    symbol: asset.metadata.symbol,
+    uri: asset.metadata.uri,
+    decimals: asset.mint.decimals,
+    supply: asset.mint.supply,
+    executable: asset.mint.header.executable,
+  }
+  console.log('tokenData: ', tokenData)
+}
+
+async function Token2(tokenId:string) {
+  // Retrieve and log the metadata state
+const metadata = await getTokenMetadata(
+  solanaConnection, // Connection instance
+  new PublicKey(tokenId), // PubKey of the Mint Account
+  'confirmed', // Commitment, can use undefined to use default
+  // TOKEN_2022_PROGRAM_ID,
+  TOKEN_PROGRAM_ID
+)
+console.log('metadata: ', metadata)
+}
+
 // console.log('<--spl tokens-->')
-getTokenAccounts(walletToQuery,solanaConnection);
+// getTokenAccounts(walletToQuery,solanaConnection);
 // console.log('<--spl-2022 tokens-->')
-getTokenAccounts2(walletToQuery,solanaConnection);
+// getTokenAccounts2(walletToQuery,solanaConnection);
+// Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
+Token2('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb Aly mint jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
