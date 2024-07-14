@@ -19,6 +19,8 @@ type token = {
 const rpcEndpoint = 'https://api.devnet.solana.com/';
 const solanaConnection = new Connection(rpcEndpoint);
 const walletKey = 'FR6qGWrrGAhtVNgUpiKyiwFEc62eoTJp3tjd67eBt2h6'; //hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+const dataSize0 = 165;
+const dataSize1 = 182;
 
 let TOKEN_PROGRAM_ID = new PublicKey(
     'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
@@ -509,7 +511,8 @@ class getTokensList {
   }
 
   async getU0() {
-    const totalList = await this.get(walletKey, solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    // const totalList = await this.get(walletKey, solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    const totalList = await this.get(walletKey, solanaConnection, dataSize0, dataSize1); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
 
     for (let index = 0; index < totalList.length; index++) {
       const meta0: any = await this.metadata1(totalList[index].mint, totalList[index].owner);
@@ -545,7 +548,8 @@ class getTokensList {
 
 async function mData() {
   const mData = new getTokensList;
-  const data= await mData.getUri();
+  // const data = await mData.getUri();
+  const data = await mData.get(walletKey, solanaConnection, dataSize0, dataSize1);
   console.log(data)
 }
 
