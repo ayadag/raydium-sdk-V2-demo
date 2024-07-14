@@ -100,6 +100,7 @@ async function Token(tokenId: string) {
   // umi.programs.bind('splToken', 'splToken2022');
 
   const mint = fromWeb3JsPublicKey(token);
+  try{
   const asset = await fetchDigitalAsset(umi, mint) 
   // console.log('asset: ', asset);
   const tokenData = {
@@ -114,7 +115,9 @@ async function Token(tokenId: string) {
     supply: asset.mint.supply,
     executable: asset.mint.header.executable,
   }
-  console.log('tokenData: ', tokenData)
+  // console.log('tokenData: ', tokenData)
+  return tokenData;
+  } catch { return null }
 }
 
 async function splToken(tokenId:string) {
@@ -203,7 +206,7 @@ class getTokenList {
     // console.log('${account.pubkey.toString()}: ', `${account.pubkey.toString()}`)
   }
 //   )
-  console.log(this.tokens);
+  // console.log(this.tokens);
   return this.tokens;
   }
   // await getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165)
@@ -317,22 +320,37 @@ async function metadata(tokenId:string, programId:string) {
     // TOKEN_PROGRAM_ID, //spl toke
     new PublicKey(programId),
   )
-  console.log('metadata: ', metadata)
+  // console.log('metadata: ', metadata)
+  return metadata;
 }
 
 class geturi {
     tList: any[] = [];
-    async tLF(){
-        return await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
-    }
+    meta: any;
+    // async tLF(){
+    //     return await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    // }
     // totalList = await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
     // totalList = await this.tLF();
     async getU0() {
         const totalList = await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
 
         for (let index = 0; index < totalList.length; index++) {
+          const meta0: any = await metadata(totalList[index].mint, totalList[index].owner);
+          const meta1: any = await Token(totalList[index].mint);
+          const meta3 = {
+            uri: ''
+          }
+          let meta: any = meta0 != null? meta0: meta1 != null? meta1: meta3
             // this.tList.push(totalList[index], await Token(totalList[index].mint));     
-            this.tList.push(totalList[index], await metadata(totalList[index].mint, totalList[index].owner));
+            // this.tList.push(totalList[index], await metadata(totalList[index].mint, totalList[index].owner));
+            this.tList.push({
+              address: totalList[index].address, 
+              mint: totalList[index].mint, 
+              owner: totalList[index].owner, 
+              balance: totalList[index].balance, 
+              uri: String(meta.uri) || '',
+            });
         }
         return this.tList;
     }
@@ -346,6 +364,15 @@ async function getUri() {
     console.log(tL)
 }
 
+async function test() {
+  const totalList = await get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+  for (let index = 0; index < totalList.length; index++) {
+    const meta0: any = await metadata(totalList[index].mint, totalList[index].owner);
+          // const meta1: any = await Token(totalList[index].mint);
+    let meta: any = meta0!= null? meta0: await Token(totalList[index].mint)
+    console.log(`meta.uri(${index}) :${meta.uri}`)
+  }
+}
 // console.log('<--spl tokens-->')
 // getTokenAccounts(walletToQuery,solanaConnection);
 // console.log('<--spl-2022 tokens-->')
@@ -357,3 +384,8 @@ async function getUri() {
 // Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
 // Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
 getUri();
+// test();
+// metadata('D9DdQmL4ddany7CUby41QN4mPrLPBcAmwrmsHa7HfZvM', 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+// Token('D9DdQmL4ddany7CUby41QN4mPrLPBcAmwrmsHa7HfZvM');
+// metadata('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX', 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
+// Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
