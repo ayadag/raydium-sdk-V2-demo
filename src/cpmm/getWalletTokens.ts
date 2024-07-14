@@ -18,6 +18,7 @@ type token = {
 // const rpcEndpoint = 'https://example.solana-mainnet.quiknode.pro/000000/';
 const rpcEndpoint = 'https://api.devnet.solana.com/';
 const solanaConnection = new Connection(rpcEndpoint);
+const walletKey = 'FR6qGWrrGAhtVNgUpiKyiwFEc62eoTJp3tjd67eBt2h6'; //hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
 
 let TOKEN_PROGRAM_ID = new PublicKey(
     'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
@@ -384,10 +385,10 @@ class getTokensList {
   tList: any[] = [];
   meta: any;
 
-  constructor(accounts: any[]){
-    // const tokens:any[];
-    this.accounts = accounts;
-  }
+  // constructor(accounts: any[]){
+  //   // const tokens:any[];
+  //   this.accounts = accounts;
+  // }
 
   async getTokenAccounts() {
     for (let index = 0; index < this.accounts.length; index++) {
@@ -415,7 +416,7 @@ class getTokensList {
 
   
 
-  async token0(tokenId: string) {
+  async metadata0(tokenId: string) {
     // const token = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
     // const token = new web3.PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); //SALD
     const token = new web3.PublicKey(tokenId); //SALD
@@ -446,7 +447,7 @@ class getTokensList {
     } catch { return null }
   }
 
-  async  token1(tokenId:string, programId:string) {
+  async  metadata1(tokenId:string, programId:string) {
     // Retrieve and log the metadata state
     const metadata = await getTokenMetadata(
       solanaConnection, // Connection instance
@@ -495,9 +496,11 @@ class getTokensList {
 
     // const getTL0 = new getTokenList(accounts0);
     // const list = await getTL.getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165);
+    this.accounts = accounts0;
     const list0 = await this.getTokenAccounts();
 
     // const getTL1 = new getTokenList(accounts1);
+    this.accounts = accounts1;
     const list1 = await this.getTokenAccounts();
 
     const totalList = [...list0,...list1];
@@ -506,11 +509,11 @@ class getTokensList {
   }
 
   async getU0() {
-    const totalList = await this.get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+    const totalList = await this.get(walletKey, solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
 
     for (let index = 0; index < totalList.length; index++) {
-      const meta0: any = await metadata(totalList[index].mint, totalList[index].owner);
-      const meta1: any = await Token(totalList[index].mint);
+      const meta0: any = await this.metadata1(totalList[index].mint, totalList[index].owner);
+      const meta1: any = await this.metadata0(totalList[index].mint);
       const meta3 = {
         name: '',
         symbol: '',
@@ -535,10 +538,16 @@ class getTokensList {
   async getUri() {
     // const gU = new geturi();
     const tL = await this.getU0();
-    console.log(tL)
+    // console.log(tL)
+    return tL;
   }
 }
 
+async function mData() {
+  const mData = new getTokensList;
+  const data= await mData.getUri();
+  console.log(data)
+}
 
 // console.log('<--spl tokens-->')
 // getTokenAccounts(walletToQuery,solanaConnection);
@@ -550,9 +559,11 @@ class getTokensList {
 // getTokensL();
 // Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
 // Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
-getUri();
+// getUri();
 // test();
 // metadata('D9DdQmL4ddany7CUby41QN4mPrLPBcAmwrmsHa7HfZvM', 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 // Token('D9DdQmL4ddany7CUby41QN4mPrLPBcAmwrmsHa7HfZvM');
 // metadata('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX', 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
 // Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
+mData();
+
