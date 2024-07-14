@@ -13,6 +13,7 @@ type token = {
   mint: string,
   owner: string,
   balance: number,
+  decimals: number,
 }
 
 // const rpcEndpoint = 'https://example.solana-mainnet.quiknode.pro/000000/';
@@ -118,7 +119,7 @@ async function Token(tokenId: string) {
     supply: asset.mint.supply,
     executable: asset.mint.header.executable,
   }
-  // console.log('tokenData: ', tokenData)
+  console.log('tokenData: ', tokenData)
   return tokenData;
   } catch { return null }
 }
@@ -193,16 +194,19 @@ class getTokenList {
   for (let index = 0; index < this.accounts.length; index++) {
     // this.accounts.forEach((account, i) => {
     const account = this.accounts[index] //for
+    // console.log('account: ', account)
     const parsedAccountInfo:any = account.account.data;
     const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
     const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
-
+    const decimals:number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["decimals"];
+    // console.log('parsedAccountInfo["parsed"]["info"]: ', parsedAccountInfo["parsed"]["info"])
     this.tokens.push(
       {
         address: String(account.pubkey.toString()),
         mint: String(mintAddress),
         owner: String(account.account.owner),
         balance: Number(tokenBalance),
+        decimals: Number(decimals),
       }
     )
     // tokens[index] = (accounts[index]);
@@ -258,7 +262,7 @@ async function get(wallet: string, solanaConnection: Connection, dataSize0: numb
     const list1 = await getTL1.getTokenAccounts();
 
     const totalList = [...list0,...list1];
-    // console.log(totalList)
+    console.log(totalList)
     return totalList
 }
 
@@ -323,7 +327,7 @@ async function metadata(tokenId:string, programId:string) {
     // TOKEN_PROGRAM_ID, //spl toke
     new PublicKey(programId),
   )
-  // console.log('metadata: ', metadata)
+  console.log('metadata: ', metadata)
   return metadata;
 }
 
@@ -399,13 +403,15 @@ class getTokensList {
     const parsedAccountInfo:any = account.account.data;
     const mintAddress:string = parsedAccountInfo["parsed"]["info"]["mint"];
     const tokenBalance: number = parsedAccountInfo["parsed"]["info"]["tokenAmount"]["uiAmount"];
-
+    const decimals:string = parsedAccountInfo["parsed"]["info"]["decimals"];
+    // console.log('account: ', account)
     this.tokens.push(
     {
       address: String(account.pubkey.toString()),
       mint: String(mintAddress),
       owner: String(account.account.owner),
       balance: Number(tokenBalance),
+      decimals: Number(decimals),
     }
     )
     // tokens[index] = (accounts[index]);
@@ -459,7 +465,7 @@ class getTokensList {
       // TOKEN_PROGRAM_ID, //spl toke
       new PublicKey(programId),
     )
-    // console.log('metadata: ', metadata)
+    console.log('metadata: ', metadata)
     return metadata;
   }
 
@@ -565,7 +571,7 @@ async function mData() {
 // getTokenAccounts2(walletToQuery,solanaConnection);
 // splToken('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb')//SALD address 6vgZNorE36XPYvpGYVYSwXvnQiWAJYCDkfeVHKvPrMeS mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
 // spl2022Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX')//SALD mint Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb Aly mint jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
-// get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
+get('hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus', solanaConnection, 165, 182); // wallet= hCjWAhZNZ4z8gSKhokcZ3HFW761Bb2WhVkmemmajCus
 // getTokensL();
 // Token('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
 // Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
@@ -575,5 +581,5 @@ async function mData() {
 // Token('D9DdQmL4ddany7CUby41QN4mPrLPBcAmwrmsHa7HfZvM');
 // metadata('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX', 'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
 // Token('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX');
-mData();
+// mData();
 
