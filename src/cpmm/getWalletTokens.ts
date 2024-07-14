@@ -2,7 +2,7 @@ import { fetchDigitalAsset } from '@metaplex-foundation/mpl-token-metadata';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
 import { fromWeb3JsPublicKey } from '@metaplex-foundation/umi-web3js-adapters';
 import { getTokenMetadata } from '@solana/spl-token';
-import web3, {
+import {
   Connection,
   GetProgramAccountsFilter,
   PublicKey,
@@ -95,7 +95,7 @@ async function getTokenAccounts2(wallet: string, solanaConnection: Connection) {
 async function Token(tokenId: string) {
   // const token = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
   // const token = new web3.PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); //SALD
-  const token = new web3.PublicKey(tokenId); //SALD
+  const token = new PublicKey(tokenId); //SALD
   // const umi = createUmi('https://api.devnet.solana.com', 'processed')
   // Use the RPC endpoint of your choice.
   // const umi = createUmi('https://api.devnet.solana.com').use(mplTokenMetadata())
@@ -421,7 +421,7 @@ class getTokensList {
   async metadata0(tokenId: string) {
     // const token = new web3.PublicKey('So11111111111111111111111111111111111111112'); //SOL
     // const token = new web3.PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb'); //SALD
-    const token = new web3.PublicKey(tokenId); //SALD
+    const token = new PublicKey(tokenId); //SALD
     // const umi = createUmi('https://api.devnet.solana.com', 'processed')
     // Use the RPC endpoint of your choice.
     // const umi = createUmi('https://api.devnet.solana.com').use(mplTokenMetadata())
