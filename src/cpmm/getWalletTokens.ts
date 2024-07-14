@@ -498,14 +498,20 @@ class getTokensList {
 
     // const getTL0 = new getTokenList(accounts0);
     // const list = await getTL.getTokenAccounts('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', solanaConnection, 165);
+
+    // this.accounts = accounts0;
+    // const list0 = await this.getTokenAccounts();
+    // this.accounts = accounts1;
+    // const list1 = await this.getTokenAccounts();
+
+    // const totalList = [...list0,...list1];
+    
     this.accounts = accounts0;
-    const list0 = await this.getTokenAccounts();
-
-    // const getTL1 = new getTokenList(accounts1);
+    await this.getTokenAccounts();  //get TOKEN_PROGRAM_ID TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA
     this.accounts = accounts1;
-    const list1 = await this.getTokenAccounts();
+    const list = await this.getTokenAccounts(); //get TOKEN_2022_PROGRAM_ID TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb
+    const totalList = [...list];
 
-    const totalList = [...list0,...list1];
     // console.log(totalList)
     return totalList
   }
@@ -548,8 +554,8 @@ class getTokensList {
 
 async function mData() {
   const mData = new getTokensList;
-  // const data = await mData.getUri();
-  const data = await mData.get(walletKey, solanaConnection, dataSize0, dataSize1);
+  const data = await mData.getUri();
+  // const data = await mData.get(walletKey, solanaConnection, dataSize0, dataSize1);
   console.log(data)
 }
 
