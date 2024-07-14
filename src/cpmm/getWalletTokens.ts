@@ -339,7 +339,9 @@ class geturi {
           const meta0: any = await metadata(totalList[index].mint, totalList[index].owner);
           const meta1: any = await Token(totalList[index].mint);
           const meta3 = {
-            uri: ''
+            name: '',
+            symbol: '',
+            uri: '',
           }
           let meta: any = meta0 != null? meta0: meta1 != null? meta1: meta3
             // this.tList.push(totalList[index], await Token(totalList[index].mint));     
@@ -349,6 +351,8 @@ class geturi {
               mint: totalList[index].mint, 
               owner: totalList[index].owner, 
               balance: totalList[index].balance, 
+              name: String(meta.name) || '',
+              symbol: String(meta.symbol) || '',
               uri: String(meta.uri) || '',
             });
         }
