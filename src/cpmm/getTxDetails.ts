@@ -1,12 +1,14 @@
 import { Connection } from '@solana/web3.js';
 
-// const tx = '3xUQDeMRGpdGgWNPu8FyC35NF8GRup9qvexBUut9URfgdALeyKPy6eKFtBxwpTkkLXpFT4bFFhFNttkuRgJ53U6k'
-const tx = '4ErUNa82UKs8NNfqNRmf5fqzBe3tBR3g8SNkPn5tkPoH58ab1bMkz9DponK5pmT2HviV54RuRa5AMAT1QvonNcGR'
+// const tx = '3xUQDeMRGpdGgWNPu8FyC35NF8GRup9qvexBUut9URfgdALeyKPy6eKFtBxwpTkkLXpFT4bFFhFNttkuRgJ53U6k' //Error Message: Init lp amount is too less(Because 100 amount lp will be locked).
+const tx = '4ErUNa82UKs8NNfqNRmf5fqzBe3tBR3g8SNkPn5tkPoH58ab1bMkz9DponK5pmT2HviV54RuRa5AMAT1QvonNcGR' //success
 const connection = new Connection('https://api.devnet.solana.com/')
 
 async function getTransaction() {
   const txDetails = await connection.getTransaction(tx, {"maxSupportedTransactionVersion": 0});
   console.log(txDetails);
+  if(txDetails?.meta?.err == null) console.log('pool created successfully');
+  if(txDetails?.meta?.err != null) if(txDetails?.meta?.logMessages) console.log(txDetails?.meta?.logMessages[58]);
 }
 
 getTransaction();
@@ -123,7 +125,7 @@ getTransaction();
 //     version: 0
 //   }
 
-//seccess
+//success
 //4ErUNa82UKs8NNfqNRmf5fqzBe3tBR3g8SNkPn5tkPoH58ab1bMkz9DponK5pmT2HviV54RuRa5AMAT1QvonNcGR
 // {
 //     blockTime: 1720292681,
