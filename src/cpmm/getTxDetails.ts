@@ -2,7 +2,8 @@ import { Connection } from '@solana/web3.js';
 
 // const tx = '3xUQDeMRGpdGgWNPu8FyC35NF8GRup9qvexBUut9URfgdALeyKPy6eKFtBxwpTkkLXpFT4bFFhFNttkuRgJ53U6k' //Error Message: Init lp amount is too less(Because 100 amount lp will be locked).
 // const tx = '4ErUNa82UKs8NNfqNRmf5fqzBe3tBR3g8SNkPn5tkPoH58ab1bMkz9DponK5pmT2HviV54RuRa5AMAT1QvonNcGR' //success
-const tx = 'Rjb7wHpgwr57kuFRwHUqFyDgKLBCDUSf9iyRMxcyzUUPa4hV7MHhbu7R3eWASwk5HWY4ioFbQYh9XZSDJpC2Naa' //already in use
+// const tx = 'Rjb7wHpgwr57kuFRwHUqFyDgKLBCDUSf9iyRMxcyzUUPa4hV7MHhbu7R3eWASwk5HWY4ioFbQYh9XZSDJpC2Naa' //already in use
+const tx = '3G5nvdDws8GnvV9YRg1qaDmogSJRzeW8MxKAkvmfNYRL4xhcec74hkcVdehkbEmY6PX5RCHtq9JEkDUDYwbSUkNr' //Message: The program expected this account to be already initialized.
 const connection = new Connection('https://api.devnet.solana.com/')
 
 async function getTransaction() {
