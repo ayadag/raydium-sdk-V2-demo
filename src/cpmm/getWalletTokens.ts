@@ -540,7 +540,7 @@ class getTokensList {
         this.tList.push({
           address: totalList[index].address, 
           mint: totalList[index].mint, 
-          owner: totalList[index].owner, 
+          programId: totalList[index].owner, 
           balance: totalList[index].balance, 
           name: String(meta.name) || '',
           symbol: String(meta.symbol) || '',

@@ -38,6 +38,7 @@ export const createPool = async () => {
     address: SALD,
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     decimals: 9,
+    // uri:'jj'
   } 
   const mintB = {
     // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
