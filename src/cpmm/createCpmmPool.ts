@@ -34,17 +34,17 @@ export const createPool = async () => {
   
 
   const mintA = {
-    // address: 'So11111111111111111111111111111111111111112',
-    address: SALD,
+    address: 'So11111111111111111111111111111111111111112',
+    // address: SALD,
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     decimals: 9,
     // uri:'jj'
   } 
   const mintB = {
-    // address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
+    address: 'Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb',
     // address: SALD2,
     // address: SALD3,
-    address: SALD4,
+    // address: SALD4,
     // address: SALD5,
     programId: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
     decimals: 9,

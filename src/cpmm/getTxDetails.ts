@@ -1,14 +1,24 @@
 import { Connection } from '@solana/web3.js';
 
 // const tx = '3xUQDeMRGpdGgWNPu8FyC35NF8GRup9qvexBUut9URfgdALeyKPy6eKFtBxwpTkkLXpFT4bFFhFNttkuRgJ53U6k' //Error Message: Init lp amount is too less(Because 100 amount lp will be locked).
-const tx = '4ErUNa82UKs8NNfqNRmf5fqzBe3tBR3g8SNkPn5tkPoH58ab1bMkz9DponK5pmT2HviV54RuRa5AMAT1QvonNcGR' //success
+// const tx = '4ErUNa82UKs8NNfqNRmf5fqzBe3tBR3g8SNkPn5tkPoH58ab1bMkz9DponK5pmT2HviV54RuRa5AMAT1QvonNcGR' //success
+const tx = 'Rjb7wHpgwr57kuFRwHUqFyDgKLBCDUSf9iyRMxcyzUUPa4hV7MHhbu7R3eWASwk5HWY4ioFbQYh9XZSDJpC2Naa' //already in use
 const connection = new Connection('https://api.devnet.solana.com/')
 
 async function getTransaction() {
   const txDetails = await connection.getTransaction(tx, {"maxSupportedTransactionVersion": 0});
   console.log(txDetails);
   if(txDetails?.meta?.err == null) console.log('pool created successfully');
-  if(txDetails?.meta?.err != null) if(txDetails?.meta?.logMessages) console.log(txDetails?.meta?.logMessages[58]);
+  // if(txDetails?.meta?.err != null) if(txDetails?.meta?.logMessages) console.log(txDetails?.meta?.logMessages[58]);
+
+  if (txDetails?.meta?.err != null) { 
+    const len = txDetails?.meta?.logMessages?.length
+    if(txDetails?.meta?.logMessages && len) {
+      const errorN = txDetails?.meta?.logMessages[len-1].split('Program 97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo failed: custom program error: ');
+      const errorNumber = errorN[1]
+      console.log('errorNumber: ', errorNumber)
+    };
+  }
 }
 
 getTransaction();
