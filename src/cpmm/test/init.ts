@@ -65,15 +65,15 @@ const configAddress1 = new PublicKey('Co1iQhsPe6HFp3ppdWhbhp1yX7Epkgt7A2aps4LkZW
 // const token1 = new PublicKey('HrNCd4LeBoh4YfAkmwX24kvbD6EFo9asLG8WeiR72XHB');
 // const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 
-const token0 = new PublicKey('715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3');
-const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-const token1 = new PublicKey('974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q');
-const token1Program = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
-
-// const token0 = new PublicKey('So11111111111111111111111111111111111111112');
+// const token0 = new PublicKey('715ogP3WbNGSk5QanRTPq9eKXHbsUXaCCv3yrTqoCfR3');
 // const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
-// const token1 = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
-// const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+// const token1 = new PublicKey('974UHNCzEitqC39ituERbMR8EawL5pLZYFyfHXZUs33q');
+// const token1Program = new PublicKey('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');
+
+const token0 = new PublicKey('So11111111111111111111111111111111111111112');
+const token0Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
+const token1 = new PublicKey('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb');
+const token1Program = new PublicKey('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');
 
 const mintA = {
   address: 'So11111111111111111111111111111111111111112',
@@ -87,8 +87,8 @@ const mintB = {
 } 
 
 const initAmount: { initAmount0: BN; initAmount1: BN } = {
-    initAmount0: new BN(10000000000),
-    initAmount1: new BN(10000000000),
+    initAmount0: new BN(1),
+    initAmount1: new BN(1),
 }
 
 async function KeypairGen() {
@@ -228,6 +228,14 @@ async function init() {
     console.log('poolState: ',poolState)
   } catch (error) {
     console.log('Error: ', error)
+    // const err: any = error;
+    // const transactionMessage = err.transactionMessage ?err.transactionMessage :undefined;
+    // // const errorMessage = err.error.errorMessage ?err.error.errorMessage :undefined;
+    // if(transactionMessage){
+    //   console.log('transactionMessage: ', transactionMessage)
+    // } else {
+    //   console.log('errorMessage: ', errorMessage)
+    // }
   } 
 }
 
