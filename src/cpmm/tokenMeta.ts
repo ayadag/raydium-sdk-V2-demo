@@ -21,6 +21,7 @@ type TokenMetadata = {
     name: string,
     symbol: string,
     uri: string,
+    logoURI?: string,
 }
 
 const rpcEndpoint = 'https://api.devnet.solana.com/';
@@ -35,6 +36,31 @@ let TOKEN_PROGRAM_ID = new PublicKey(
 let TOKEN_2022_PROGRAM_ID = new PublicKey(
     'TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb'
 );
+
+async function getMetadataLogoURI(mint: string, owner: string) {
+    const meta0: any = await metadata1(mint, owner);
+    const meta1: any = await metadata0(mint);
+    const meta3 = {
+        name: '',
+        symbol: '',
+        uri: '',
+    }
+
+    let meta: any = meta0 != null? meta0: meta1 != null? meta1: meta3;
+
+    const logoURI = await getLogoURI(String(meta.uri));
+
+    const tokenData: TokenMetadata ={
+        mint,
+        owner,
+        name: String(meta.name),
+        symbol: String(meta.symbol),
+        uri: String(meta.uri),
+        logoURI,
+    }
+    console.log(tokenData);
+    return tokenData
+}
 
 async function getMetadataUri(mint: string, owner: string) {
     const meta0: any = await metadata1(mint, owner);
@@ -103,5 +129,25 @@ async function  metadata1(tokenId:string, programId:string) {
     return metadata;
 }
 
+async function getLogoURI(uri:string) {
+    if(uri == ''){return '';}
+    try{
+        // console.log("`${uri}`: ", `${uri}`)
+        const meta = await ( await fetch (
+            `${uri}`
+            )
+        ).json();
+        const logU:string = meta.image;
+        // console.log('logU: ', logU)
+        return logU
+    } catch (error) {
+        console.error('Error in getLogoURI: ', error)
+        const logU:string = '';
+        return logU
+    }      
+}
+
 // getMetadataUri('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX', TOKEN_2022_PROGRAM_ID.toString())  //aleyana jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
-getMetadataUri('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', TOKEN_PROGRAM_ID.toString())  //SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
+// getMetadataUri('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', TOKEN_PROGRAM_ID.toString())  //SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
+// getMetadataLogoURI('jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX', TOKEN_2022_PROGRAM_ID.toString())  //aleyana jqoKcrxD2nPNUDboA7JojvRXBfQNedD6Yhnse2kTwfX
+getMetadataLogoURI('Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb', TOKEN_PROGRAM_ID.toString())  //SALD Duqm5K5U1H8KfsSqwyWwWNWY5TLB9WseqNEAQMhS78hb
