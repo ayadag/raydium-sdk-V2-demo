@@ -26,54 +26,54 @@ export const deposit = async () => {
   let poolInfo: ApiV3PoolInfoStandardItemCpmm;
 
   poolInfo = {
-    "programId":"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
-    "id":"EwBdhByEJ2w9nZ8aHghYrtcZ3DZBEQrot5wAv6bxuZv",
-    "mintA":{
-      "chainId":101,
-      "address":"So11111111111111111111111111111111111111112",
-      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-      "logoURI":"https://img-v1.raydium.io/icon/So11111111111111111111111111111111111111112.png",
-      "symbol":"WSOL",
-      "name":"Wrapped SOL",
-      "decimals":9,
-      "tags":[],
-      "extensions":{}
+    programId:"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
+    id:"EwBdhByEJ2w9nZ8aHghYrtcZ3DZBEQrot5wAv6bxuZv",
+    mintA:{
+      chainId:101,
+      address:"So11111111111111111111111111111111111111112",
+      programId:"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      logoURI:"https://img-v1.raydium.io/icon/So11111111111111111111111111111111111111112.png",
+      symbol:"WSOL",
+      name:"Wrapped SOL",
+      decimals:9,
+      tags:[],
+      extensions:{}
     },
-    "mintB":{
-      "chainId":101,
-      "address":"HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr",
-      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-      "logoURI":"https://img-v1.raydium.io/icon/HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr.png",
-      "symbol":"L2",
-      "name":"L2",
-      "decimals":6,
-      "tags":[],
-      "extensions":{}
+    mintB:{
+      chainId:101,
+      address:"HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr",
+      programId:"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      logoURI:"https://img-v1.raydium.io/icon/HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr.png",
+      symbol:"L2",
+      name:"L2",
+      decimals:6,
+      tags:[],
+      extensions:{}
     },
-    "openTime":"1721665399",
-    "vault":{
-      "A":"CUapjJ6AGW8pGRxpdhucU8WpdDLXvHPsfy7H8pDDug9n",
-      "B":"8YQMzpreDwaHCknU8rjFePPVxsTw9npKVwcBvyWQRLtg"
+    openTime:"1721665399",
+    vault:{
+      A:"CUapjJ6AGW8pGRxpdhucU8WpdDLXvHPsfy7H8pDDug9n",
+      B:"8YQMzpreDwaHCknU8rjFePPVxsTw9npKVwcBvyWQRLtg"
     },
-    "authority":"GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
-    "config":{
-      "id":"D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2",
-      "index":0,
-      "protocolFeeRate":120000,
-      "tradeFeeRate":2500,
-      "fundFeeRate":40000,
-      "createPoolFee":"150000000"
+    authority:"GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
+    config:{
+      id:"D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2",
+      index:0,
+      protocolFeeRate:120000,
+      tradeFeeRate:2500,
+      fundFeeRate:40000,
+      createPoolFee:"150000000"
     },
-    "mintLp":{
-      "chainId":101,
-      "address":"BDjLBazjFbqRwiQWQz3zeZNzj2z9GDweNpDkn2Hjo6yZ",
-      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-      "logoURI":"",
-      "symbol":"",
-      "name":"",
-      "decimals":9,
-      "tags":[],
-      "extensions":{}
+    mintLp:{
+      chainId:101,
+      address:"BDjLBazjFbqRwiQWQz3zeZNzj2z9GDweNpDkn2Hjo6yZ",
+      programId:"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      logoURI:"",
+      symbol:"",
+      name:"",
+      decimals:9,
+      tags:[],
+      extensions:{}
     }
   }
 
