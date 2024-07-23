@@ -359,4 +359,6 @@ async function getPools (poolsData: any[]) {
 
 //connection new Connection('https://api.devnet.solana.com')
 //programId = new PublicKey('97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo')
-getProgramAccounts6(new Connection('https://api.devnet.solana.com'), new PublicKey('97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo'));
+// getProgramAccounts6(new Connection('https://api.devnet.solana.com'), new PublicKey('97MQhx2fniaNsQgC4G2M6tLUQBah1etEnhsKe1aMCXbo'));
+
+getProgramAccounts6(new Connection('https://api.mainnet-beta.solana.com'), new PublicKey('CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C'));

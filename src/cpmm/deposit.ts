@@ -26,24 +26,9 @@ export const deposit = async () => {
   let poolInfo: ApiV3PoolInfoStandardItemCpmm;
 
   poolInfo = {
-    type: "Standard",
-    
-  }
-  let poolInfo1 = {
-    "programId":"675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",
-    "id":"9LNQQnJ5tGbuetZkPaKB5NRSN4r2P2SuvyXm2owFkJC7",
+    "programId":"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
+    "id":"EwBdhByEJ2w9nZ8aHghYrtcZ3DZBEQrot5wAv6bxuZv",
     "mintA":{
-      "chainId":101,
-      "address":"B6DuEXoYuzqYTTscrGUGDCK1t9tGkH7Ud1yQq65AC6A8",
-      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
-      "logoURI":"",
-      "symbol":"PSYHOBIDEN",
-      "name":"PSYHOBIDEN",
-      "decimals":8,
-      "tags":["hasFreeze"],
-      "extensions":{}
-    },
-    "mintB":{
       "chainId":101,
       "address":"So11111111111111111111111111111111111111112",
       "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
@@ -54,35 +39,95 @@ export const deposit = async () => {
       "tags":[],
       "extensions":{}
     },
-    "openTime":"1721588958",
-    "vault":{
-      "A":"3njfibCyfAXFkDCswMTuvpigNQdx2ixK6E8Upu67DGbV",
-      "B":"DvH1m4SoPV2opFqzfNGRsn1KB6ZKr4w3CZM3q8yaf2Fr"
+    "mintB":{
+      "chainId":101,
+      "address":"HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr",
+      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "logoURI":"https://img-v1.raydium.io/icon/HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr.png",
+      "symbol":"L2",
+      "name":"L2",
+      "decimals":6,
+      "tags":[],
+      "extensions":{}
     },
-    "authority":"5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1",
-    "openOrders":"5ceMD92omPto6LXH7TmFmHjA6epjXpwWGsGbXE7xvMuz",
-    "targetOrders":"CWixj5gD2ov6QTMFDYVrKPMXtxaRcH5odcWZjkUSJSbh",
+    "openTime":"1721665399",
+    "vault":{
+      "A":"CUapjJ6AGW8pGRxpdhucU8WpdDLXvHPsfy7H8pDDug9n",
+      "B":"8YQMzpreDwaHCknU8rjFePPVxsTw9npKVwcBvyWQRLtg"
+    },
+    "authority":"GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
+    "config":{
+      "id":"D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2",
+      "index":0,
+      "protocolFeeRate":120000,
+      "tradeFeeRate":2500,
+      "fundFeeRate":40000,
+      "createPoolFee":"150000000"
+    },
     "mintLp":{
       "chainId":101,
-      "address":"2HpAYQ3qoeigL9TTJDqUcXFkGk5MfhEWPGTm9aVPc8ve",
+      "address":"BDjLBazjFbqRwiQWQz3zeZNzj2z9GDweNpDkn2Hjo6yZ",
       "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
       "logoURI":"",
       "symbol":"",
       "name":"",
-      "decimals":8,
+      "decimals":9,
+      "tags":[],
+      "extensions":{}
+    }
+  }
+
+  let poolInfo1 = {
+    "programId":"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
+    "id":"EwBdhByEJ2w9nZ8aHghYrtcZ3DZBEQrot5wAv6bxuZv",
+    "mintA":{
+      "chainId":101,
+      "address":"So11111111111111111111111111111111111111112",
+      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "logoURI":"https://img-v1.raydium.io/icon/So11111111111111111111111111111111111111112.png",
+      "symbol":"WSOL",
+      "name":"Wrapped SOL",
+      "decimals":9,
       "tags":[],
       "extensions":{}
     },
-    "marketProgramId":"srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX",
-    "marketId":"E1jLcYg9HvhQuejyQmnBPsiUiYHDfthG8sDqSg7iLC9P",
-    "marketAuthority":"7xpCwHsfaPzSgBk5YcVTyHdY9g1khZfqCtQQSV5fGpy2",
-    "marketBaseVault":"FpcPokCsJWsY93ReGSmAPLraBWjy97jy5MdFWhEKLpN3",
-    "marketQuoteVault":"8AMFVgxRa5W9DPpDDUVTGszUuZowEmv7m4qQ3ZymnfSx",
-    "marketBids":"AyvJyhkfwgiqtmaGwiUvt52ngDVx91f36GwRhWyyahnh",
-    "marketAsks":"E2vRcZr5sbHQf9qCLq3YqWDVnTonL1sZCJ3DY8xtEJ3i",
-    "marketEventQueue":"AeV5AUg1C7zKnYSVq43WPi9g1mhPayeEB8XeFUSW5MMv"
+    "mintB":{
+      "chainId":101,
+      "address":"HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr",
+      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "logoURI":"https://img-v1.raydium.io/icon/HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr.png",
+      "symbol":"L2",
+      "name":"L2",
+      "decimals":6,
+      "tags":[],
+      "extensions":{}
+    },
+    "openTime":"1721665399",
+    "vault":{
+      "A":"CUapjJ6AGW8pGRxpdhucU8WpdDLXvHPsfy7H8pDDug9n",
+      "B":"8YQMzpreDwaHCknU8rjFePPVxsTw9npKVwcBvyWQRLtg"
+    },
+    "authority":"GpMZbSM2GgvTKHJirzeGfMFoaZ8UR2X7F4v8vHTvxFbL",
+    "config":{
+      "id":"D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2",
+      "index":0,
+      "protocolFeeRate":120000,
+      "tradeFeeRate":2500,
+      "fundFeeRate":40000,
+      "createPoolFee":"150000000"
+    },
+    "mintLp":{
+      "chainId":101,
+      "address":"BDjLBazjFbqRwiQWQz3zeZNzj2z9GDweNpDkn2Hjo6yZ",
+      "programId":"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      "logoURI":"",
+      "symbol":"",
+      "name":"",
+      "decimals":9,
+      "tags":[],
+      "extensions":{}
+    }
   }
-
 
   const uiInputAmount = '0.0001'
   const inputAmount = new BN(new Decimal(uiInputAmount).mul(10 ** poolInfo.mintA.decimals).toFixed(0))
