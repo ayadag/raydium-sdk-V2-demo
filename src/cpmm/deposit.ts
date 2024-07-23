@@ -9,7 +9,7 @@ import {
 import {
   initSdk,
   txVersion,
-} from '../config';
+} from '../config-copy';
 
 export const deposit = async () => {
   // const raydium = await initSdk()
@@ -26,6 +26,123 @@ export const deposit = async () => {
   let poolInfo: ApiV3PoolInfoStandardItemCpmm;
 
   poolInfo = {
+    type: "Standard",
+    // lpMint: ApiV3Token;
+    lpMint: {
+      chainId:101,
+      address:"BDjLBazjFbqRwiQWQz3zeZNzj2z9GDweNpDkn2Hjo6yZ",
+      programId:"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      logoURI:"",
+      symbol:"",
+      name:"",
+      decimals:9,
+      tags:[],
+      extensions:{}
+    },
+    // lpPrice: number;
+    lpPrice: 1,
+    // lpAmount: number;
+    lpAmount: 1,
+    // config: ApiCpmmConfigV3;
+    config: {
+      id:"D4FPEruKEHrG5TenZ2mpDGEfu1iUvTiqBxvpU8HLBvC2",
+      index:0,
+      protocolFeeRate:120000,
+      tradeFeeRate:2500,
+      fundFeeRate:40000,
+      createPoolFee:"150000000"
+    },
+    // programId: string;
+    // id: string;
+    // mintA: ApiV3Token;
+    // mintB: ApiV3Token;
+    programId:"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
+    id:"EwBdhByEJ2w9nZ8aHghYrtcZ3DZBEQrot5wAv6bxuZv",
+    mintA:{
+      chainId:101,
+      address:"So11111111111111111111111111111111111111112",
+      programId:"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      logoURI:"https://img-v1.raydium.io/icon/So11111111111111111111111111111111111111112.png",
+      symbol:"WSOL",
+      name:"Wrapped SOL",
+      decimals:9,
+      tags:[],
+      extensions:{}
+    },
+    mintB:{
+      chainId:101,
+      address:"HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr",
+      programId:"TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+      logoURI:"https://img-v1.raydium.io/icon/HCLiq7LWktm6X7vPUyD2fFCQE5GSyW6DKCGPVkL4addr.png",
+      symbol:"L2",
+      name:"L2",
+      decimals:6,
+      tags:[],
+      extensions:{}
+    },
+
+    // rewardDefaultInfos: PoolFarmRewardInfo[];
+    rewardDefaultInfos: [],
+    // rewardDefaultPoolInfos: "Ecosystem" | "Fusion" | "Raydium" | "Clmm";
+    rewardDefaultPoolInfos: "Raydium",
+    // price: number;
+    price: 1,
+    // mintAmountA: number;
+    mintAmountA: 1,
+    // mintAmountB: number;
+    mintAmountB: 1,
+    // feeRate: number;
+    feeRate: 1,
+    // openTime: string;
+    openTime:"1721665399",
+    // tvl: number;
+    tvl: 1,
+  
+    // day: ApiV3PoolInfoCountItem;
+    day: {
+      volume: 1,
+      volumeQuote: 1,
+      volumeFee: 1,
+      apr: 1,
+      feeApr: 1,
+      priceMin: 1,
+      priceMax: 1,
+      rewardApr: [1]
+    },
+    // week: ApiV3PoolInfoCountItem;
+    week: {
+      volume: 1,
+      volumeQuote: 1,
+      volumeFee: 1,
+      apr: 1,
+      feeApr: 1,
+      priceMin: 1,
+      priceMax: 1,
+      rewardApr: [1]
+    },
+    // month: ApiV3PoolInfoCountItem;
+    month: {
+      volume: 1,
+      volumeQuote: 1,
+      volumeFee: 1,
+      apr: 1,
+      feeApr: 1,
+      priceMin: 1,
+      priceMax: 1,
+      rewardApr: [1]
+    },
+    // pooltype: PoolTypeItem[];
+    pooltype : ["StablePool"],
+  
+    // farmUpcomingCount: number;
+    // farmOngoingCount: number;
+    // farmFinishedCount: number;
+    farmUpcomingCount: 1,
+    farmOngoingCount: 1,
+    farmFinishedCount: 1,
+  }
+
+  let poolInfo2 = {
     programId:"CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
     id:"EwBdhByEJ2w9nZ8aHghYrtcZ3DZBEQrot5wAv6bxuZv",
     mintA:{
