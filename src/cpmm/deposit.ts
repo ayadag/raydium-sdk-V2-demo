@@ -26,6 +26,10 @@ export const deposit = async () => {
   let poolInfo: ApiV3PoolInfoStandardItemCpmm;
 
   poolInfo = {
+    type: "Standard",
+    
+  }
+  let poolInfo1 = {
     "programId":"675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8",
     "id":"9LNQQnJ5tGbuetZkPaKB5NRSN4r2P2SuvyXm2owFkJC7",
     "mintA":{
