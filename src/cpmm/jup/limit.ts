@@ -15,7 +15,7 @@ import {
 
 import {
   connection2 as connection,
-  owner as Owner,
+  owner2 as Owner,
 } from '../../config';
 import {
   CancelOrder,
@@ -112,6 +112,15 @@ async function cancelOrder() {
 
     // console.log(`[✅] Order canceld successfully TRX: ${trx}`); //ayad
 }
+
+orders()
+/**
+Open orders:  []
+Order History:  []
+Order History Count:  0
+Trade History:  []
+Trade History Count:  0
+ */
 
 
 
