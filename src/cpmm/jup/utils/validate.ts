@@ -18,6 +18,15 @@ export interface OrderFields {
   expiredAt?: null;
 }
 
+export interface OrderFields2 {
+  owner: PublicKey;
+  inAmount: number;
+  inputMint: PublicKey;
+  outAmount: number;
+  outputMint: PublicKey;
+  base: PublicKey;
+  expiredAt?: null;
+}
 export interface CancelOrder {
   owner: string;
   orderPubKey: string;

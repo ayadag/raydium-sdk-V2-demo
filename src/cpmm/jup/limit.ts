@@ -29,8 +29,11 @@ const limitOrder = new LimitOrderProvider(connection);
 async function createOrder() {
     const order1 = {
         // owner: '',
-        inAmount: 1,
-        outAmount: 1,
+        // inAmount: 1,
+        inAmount: 2261385.8592,
+        // outAmount: 1,
+        // outAmount: 2,
+        outAmount: 0.0444,//0.0444015233949946
         inputMint: 'DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q', //PRIORA
         outputMint: 'So11111111111111111111111111111111111111112', //SOL
     }
@@ -39,9 +42,11 @@ async function createOrder() {
 
     let orderData: OrderFields = {
         owner: Owner.publicKey,
-        inAmount: new BN(order1.inAmount), // 1 USDC
+        // inAmount: new BN(order1.inAmount), // 1 USDC
+        inAmount: new BN(order1.inAmount * Math.pow(10, 9)), // 1 USDC decimals 9
         inputMint: new PublicKey(order1.inputMint), // USDC mainnet mint
-        outAmount: new BN(order1.outAmount), // 1 SOL
+        // outAmount: new BN(order1.outAmount), // 1 SOL
+        outAmount: new BN(order1.outAmount * Math.pow(10, 9)), // 1 SOL decimals 9
         outputMint: new PublicKey(order1.outputMint), // SOL mint
         base: base.publicKey,
         expiredAt: null,
@@ -112,8 +117,20 @@ async function cancelOrder() {
     // console.log(`[✅] Order canceld successfully TRX: ${trx}`); //ayad
 }
 
+function test() {
+    // const y = 0.1 * 1000000000;
+    // const y = 0.1 * Math.pow(10, 9);
+    // const x = new BN(y, 9);
+    // const x = new BN(0.0895 * Math.pow(10, 9), 9);
+    const x = new BN(0.0895 * Math.pow(10, 9));
+    console.log(x)
+    console.log(x.toNumber())
+}
 // createOrder();
 orders();
+// test()
+
+
 /**
 Open orders:  []
 Order History:  []
@@ -163,6 +180,163 @@ Order History Count:  0
 Trade History:  []
 Trade History Count:  0
  */
+
+/*
+orderPubKey:  PublicKey [PublicKey(9AzPcAiuyqfM61k4muAThHP4TwSrYqm6cctanBeHLzhG)] {
+  _bn: <BN: 796c9d0ebb5cabf1e3ae9c99f7922133cf5cc3b3901f586f2596752dc708d23b>
+}
+ */
+
+/*
+Open orders:  [
+  {
+    publicKey: PublicKey [PublicKey(9AzPcAiuyqfM61k4muAThHP4TwSrYqm6cctanBeHLzhG)] {
+      _bn: <BN: 796c9d0ebb5cabf1e3ae9c99f7922133cf5cc3b3901f586f2596752dc708d23b>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 1>,
+      oriTakingAmount: <BN: 2>,
+      makingAmount: <BN: 1>,
+      takingAmount: <BN: 2>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(CESsdkrUVvtidsieLt821wRPq2verJNbwWYyfMobFhUV)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(3TahyAZYXK2a7fk1bSosf15v9iA27NvXT41ei3KeyDgJ)]],
+      referral: null
+    }
+  },
+  {
+    publicKey: PublicKey [PublicKey(AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3)] {
+      _bn: <BN: 932e3cc76a72b233f5ca2209345545870c3a73cf41835874bd0b7f33193820d2>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 1>,
+      oriTakingAmount: <BN: 1>,
+      makingAmount: <BN: 1>,
+      takingAmount: <BN: 1>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(5XydWrUEpSqHUebfFZHawCeY54U5AERWQv26KMxcnbwF)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(3gyMBo8pURqV1y8v1rgzZHtuUpjNtK4ws97TEVrEVLcc)]],
+      referral: null
+    }
+  }
+]
+Order History:  []
+Order History Count:  0
+Trade History:  []
+Trade History Count:  0
+ */
+
+/*
+orderPubKey:  PublicKey [PublicKey(5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy)] {
+  _bn: <BN: 406e169be5720802f16c393962d145326bb0174f6ee007b412b544d9ee123568>
+}
+[✅] Order placed successfully TRX: 2zvJR1Fk4d5aPxfpDqECH7xvQUS1gPWDaEN3WUrJkcZjrzDkQQ2nETpiXQ2GzCrzbSj6n1z8tMn844dJdeAaszFQ
+ */
+
+/*
+Open orders:  [
+  {
+    publicKey: PublicKey [PublicKey(AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3)] {
+      _bn: <BN: 932e3cc76a72b233f5ca2209345545870c3a73cf41835874bd0b7f33193820d2>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 1>,
+      oriTakingAmount: <BN: 1>,
+      makingAmount: <BN: 1>,
+      takingAmount: <BN: 1>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(5XydWrUEpSqHUebfFZHawCeY54U5AERWQv26KMxcnbwF)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(3gyMBo8pURqV1y8v1rgzZHtuUpjNtK4ws97TEVrEVLcc)]],
+      referral: null
+    }
+  },
+  {
+    publicKey: PublicKey [PublicKey(9AzPcAiuyqfM61k4muAThHP4TwSrYqm6cctanBeHLzhG)] {
+      _bn: <BN: 796c9d0ebb5cabf1e3ae9c99f7922133cf5cc3b3901f586f2596752dc708d23b>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 1>,
+      oriTakingAmount: <BN: 2>,
+      makingAmount: <BN: 1>,
+      takingAmount: <BN: 2>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(CESsdkrUVvtidsieLt821wRPq2verJNbwWYyfMobFhUV)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(3TahyAZYXK2a7fk1bSosf15v9iA27NvXT41ei3KeyDgJ)]],
+      referral: null
+    }
+  },
+  {
+    publicKey: PublicKey [PublicKey(5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy)] {
+      _bn: <BN: 406e169be5720802f16c393962d145326bb0174f6ee007b412b544d9ee123568>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 808b7ecd67400>,
+      oriTakingAmount: <BN: 2a57d80>,
+      makingAmount: <BN: 808b7ecd67400>,
+      takingAmount: <BN: 2a57d80>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(83EYAs2nU2enjuq7o3P68hm6Ux1RXN2u8bTyfH8vLBph)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(EMCo8gmS8cbjKJ1xx8KQm9byGHKQTTVp8HKgQ5o4btf1)]],
+      referral: null
+    }
+  }
+]
+Order History:  []
+Order History Count:  0
+Trade History:  []
+Trade History Count:  0
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // import { Request, Response, Router } from "express";
