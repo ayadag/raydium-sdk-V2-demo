@@ -21,7 +21,6 @@ import {
   CancelOrder,
   OrderFields,
   validateCancelOrderFields,
-  validateCreateOrderFields,
 } from './utils/validate';
 
 const limitOrder = new LimitOrderProvider(connection);
@@ -32,8 +31,8 @@ async function createOrder() {
         // owner: '',
         inAmount: 1,
         outAmount: 1,
-        inputMint: '', //USDC
-        outputMint: '', //SOL
+        inputMint: 'DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q', //PRIORA
+        outputMint: 'So11111111111111111111111111111111111111112', //SOL
     }
 
     const base = Keypair.generate();
@@ -48,15 +47,15 @@ async function createOrder() {
         expiredAt: null,
     }
     
-    validateCreateOrderFields(orderData); //ayad
+    // validateCreateOrderFields(orderData); //ayad
 
     const { tx, orderPubKey } = await limitOrder.createOrder(
         orderData as CreateOrderParams
     );
 
+    console.log('orderPubKey: ', orderPubKey);
     const trx = await sendAndConfirmTransaction(connection, tx, [Owner, base]);
-
-    console.log(`[✅] Order placed successfully TRX: ${trx}`);
+    return console.log(`[✅] Order placed successfully TRX: ${trx}`);
 }
 
 //Orders
@@ -86,7 +85,7 @@ async function orders() {
     const tradeHistoryCount: number = await limitOrder.getTradeHistoryCount({
         wallet: Owner.publicKey.toBase58(),
     });
-    console.log('Trade History Count: ', tradeHistoryCount);
+    return console.log('Trade History Count: ', tradeHistoryCount);
 }
 
 //Cancel Order
@@ -113,7 +112,8 @@ async function cancelOrder() {
     // console.log(`[✅] Order canceld successfully TRX: ${trx}`); //ayad
 }
 
-orders()
+// createOrder();
+orders();
 /**
 Open orders:  []
 Order History:  []
@@ -122,6 +122,47 @@ Trade History:  []
 Trade History Count:  0
  */
 
+/*
+Open orders:  []
+orderPubKey:  PublicKey [PublicKey(AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3)] {
+  _bn: <BN: 932e3cc76a72b233f5ca2209345545870c3a73cf41835874bd0b7f33193820d2>
+}
+Order History:  []
+Order History Count:  0
+Trade History:  []
+Trade History Count:  0
+*/
+
+/*
+Open orders:  [
+  {
+    publicKey: PublicKey [PublicKey(AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3)] {
+      _bn: <BN: 932e3cc76a72b233f5ca2209345545870c3a73cf41835874bd0b7f33193820d2>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 1>,
+      oriTakingAmount: <BN: 1>,
+      makingAmount: <BN: 1>,
+      takingAmount: <BN: 1>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(5XydWrUEpSqHUebfFZHawCeY54U5AERWQv26KMxcnbwF)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(3gyMBo8pURqV1y8v1rgzZHtuUpjNtK4ws97TEVrEVLcc)]],
+      referral: null
+    }
+  }
+]
+Order History:  []
+Order History Count:  0
+Trade History:  []
+Trade History Count:  0
+ */
 
 
 // import { Request, Response, Router } from "express";
