@@ -9,7 +9,7 @@ import {
 import {
   initSdk,
   txVersion,
-} from '../config-copy';
+} from '../config';
 
 export const deposit = async () => {
   // const raydium = await initSdk()
@@ -449,4 +449,4 @@ export const deposit = async () => {
 }
 
 /** uncomment code below to execute */
-// deposit()
+deposit()
