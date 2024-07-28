@@ -97,7 +97,7 @@ async function orders() {
 async function cancelOrder() {
     const order: CancelOrder = {
         owner: Owner.publicKey.toBase58(),
-        orderPubKey: '' //Order Publickey
+        orderPubKey: 'AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3' //Order Publickey
     };
 
     validateCancelOrderFields(order);
@@ -112,9 +112,9 @@ async function cancelOrder() {
 
     console.log('txid: ', txid)
 
-    // const trx = await sendAndConfirmTransaction(connection, txid, [Owner]); //ayad
+    const trx = await sendAndConfirmTransaction(connection, txid, [Owner]); //ayad
 
-    // console.log(`[✅] Order canceld successfully TRX: ${trx}`); //ayad
+    console.log(`[✅] Order canceld successfully TRX: ${trx}`); //ayad
 }
 
 function test() {
@@ -140,8 +140,9 @@ function test() {
     console.log(x2.toNumber() / Math.pow(10, 9), y2.toNumber() / Math.pow(10, 9))
 }
 // createOrder();
-// orders();
-test()
+orders();
+// cancelOrder();
+// test();
 
 
 /**
@@ -409,6 +410,97 @@ Open orders:  [
 ]
 Order History:  []
 Order History Count:  0
+Trade History:  [
+  {
+    id: 64870897,
+    inAmount: 376902467489833n,
+    outAmount: 7400095n,
+    txid: '5f5TdYZFpSZWcKRwanpUfZmuw9ot66nWke2mxwVsA5DFUZTEMpDF1roHWS9JsVbJHpxY16BUdB17E85nx8JrGpKM',
+    createdAt: 2024-07-27T13:59:05.000Z,
+    order: {
+      orderKey: '5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy',
+      inputMint: 'DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q',
+      outputMint: 'So11111111111111111111111111111111111111112'
+    },
+    orderKey: '5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy'
+  }
+]
+Trade History Count:  1
+ */
+
+/*
+[✅] Order canceld successfully TRX: 34d6o7fFjvFZEXeBJsishnkKUhfFXdbjvyTp287VKxghgRaKTAZpZfHRtwjvuTPNCEUSj3GxqZBo4znm1adwXHm4
+ */
+
+//after cancel AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3 order
+/*
+Open orders:  [
+  {
+    publicKey: PublicKey [PublicKey(9AzPcAiuyqfM61k4muAThHP4TwSrYqm6cctanBeHLzhG)] {
+      _bn: <BN: 796c9d0ebb5cabf1e3ae9c99f7922133cf5cc3b3901f586f2596752dc708d23b>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 1>,
+      oriTakingAmount: <BN: 2>,
+      makingAmount: <BN: 1>,
+      takingAmount: <BN: 2>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(CESsdkrUVvtidsieLt821wRPq2verJNbwWYyfMobFhUV)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(3TahyAZYXK2a7fk1bSosf15v9iA27NvXT41ei3KeyDgJ)]],
+      referral: null
+    }
+  },
+  {
+    publicKey: PublicKey [PublicKey(5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy)] {
+      _bn: <BN: 406e169be5720802f16c393962d145326bb0174f6ee007b412b544d9ee123568>
+    },
+    account: {
+      maker: [PublicKey [PublicKey(Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB)]],
+      inputMint: [PublicKey [PublicKey(DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q)]],
+      outputMint: [PublicKey [PublicKey(So11111111111111111111111111111111111111112)]],
+      waiting: true,
+      oriMakingAmount: <BN: 808b7ecd67400>,
+      oriTakingAmount: <BN: 2a57d80>,
+      makingAmount: <BN: 6b1ed7b25e3d7>,
+      takingAmount: <BN: 23492e1>,
+      makerInputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      makerOutputAccount: [PublicKey [PublicKey(9eEMCvwW4Tv871RQFCvBomikooSS9741xewreQyT1YSV)]],
+      reserve: [PublicKey [PublicKey(83EYAs2nU2enjuq7o3P68hm6Ux1RXN2u8bTyfH8vLBph)]],
+      borrowMakingAmount: <BN: 0>,
+      expiredAt: null,
+      base: [PublicKey [PublicKey(EMCo8gmS8cbjKJ1xx8KQm9byGHKQTTVp8HKgQ5o4btf1)]],
+      referral: null
+    }
+  }
+]
+Order History:  [
+  {
+    id: 48784712,
+    orderKey: 'AuXpoXwxnbsBHGfJBYaCKTRxhcfdCHdhdYFVHhwrqyH3',
+    maker: 'Vf8vjzicHUxWRvVFTxU76PzdwWRgRrbRwan6JwF9RBB',
+    inputMint: 'DYopxq7KCJKw4fbbkgfiuXyiW9dt2EAaXL4vxW9T3V4Q',
+    outputMint: 'So11111111111111111111111111111111111111112',
+    inAmount: 1n,
+    oriInAmount: 1n,
+    outAmount: 1n,
+    oriOutAmount: 1n,
+    expiredAt: null,
+    state: 'Cancelled',
+    createTxid: '5c6bJaM91LL7EX4BwxYpXKXzagRcsgqfbaet2aA6j9jbfEPGe1LGk93isEyAhysdYTqHVxncZKaGpPqsjnR4ieED',
+    cancelTxid: '34d6o7fFjvFZEXeBJsishnkKUhfFXdbjvyTp287VKxghgRaKTAZpZfHRtwjvuTPNCEUSj3GxqZBo4znm1adwXHm4',
+    updatedAt: 2024-07-28T05:59:39.493Z,
+    createdAt: 2024-07-27T05:35:03.000Z,
+    txid: '5c6bJaM91LL7EX4BwxYpXKXzagRcsgqfbaet2aA6j9jbfEPGe1LGk93isEyAhysdYTqHVxncZKaGpPqsjnR4ieED'
+  }
+]
+Order History Count:  1
 Trade History:  [
   {
     id: 64870897,
