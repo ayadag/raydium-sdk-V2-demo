@@ -122,13 +122,26 @@ function test() {
     // const y = 0.1 * Math.pow(10, 9);
     // const x = new BN(y, 9);
     // const x = new BN(0.0895 * Math.pow(10, 9), 9);
-    const x = new BN(0.0895 * Math.pow(10, 9));
-    console.log(x)
-    console.log(x.toNumber())
+    // const x = new BN(0.0895 * Math.pow(10, 9));
+    const x = new BN(2261385.8592 * Math.pow(10, 9));//2261385.8592
+    const y = new BN(0.0444 * Math.pow(10, 9));//2261385.8592
+    console.log(x, y)
+    console.log(x.toNumber(), y.toNumber())
+    /*
+    oriMakingAmount: <BN: 808b7ecd67400>,
+      oriTakingAmount: <BN: 2a57d80>,
+      makingAmount: <BN: 6b1ed7b25e3d7>,
+      takingAmount: <BN: 23492e1>,
+    */
+    const x2 = new BN('6b1ed7b25e3d7', "hex");//6b1ed7b25e3d7
+    // const x3 = new Number(6b)
+    const y2 = new BN('23492e1', "hex");//23492e1
+    console.log(x2, y2)
+    console.log(x2.toNumber() / Math.pow(10, 9), y2.toNumber() / Math.pow(10, 9))
 }
 // createOrder();
-orders();
-// test()
+// orders();
+test()
 
 
 /**
