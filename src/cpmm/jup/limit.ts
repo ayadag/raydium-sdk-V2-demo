@@ -247,6 +247,7 @@ orderPubKey:  PublicKey [PublicKey(5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy)
 [✅] Order placed successfully TRX: 2zvJR1Fk4d5aPxfpDqECH7xvQUS1gPWDaEN3WUrJkcZjrzDkQQ2nETpiXQ2GzCrzbSj6n1z8tMn844dJdeAaszFQ
  */
 
+//before complete order 5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy
 /*
 Open orders:  [
   {
@@ -322,6 +323,8 @@ Trade History:  []
 Trade History Count:  0
  */
 
+
+//after complete order 5LWTQhjUfuUigyx4y5mXAXEi7qSrcUkT9KnJ8sL5kEjy
 /*
 Open orders:  [
   {
