@@ -1,3 +1,7 @@
+import 'dotenv/config';
+
+import bs58 from 'bs58';
+
 import { addKeypairToEnvFile } from '@solana-developers/node-helpers';
 import {
   createInitializeMintInstruction,
@@ -7,7 +11,6 @@ import {
   TOKEN_2022_PROGRAM_ID,
 } from '@solana/spl-token';
 import {
-  clusterApiUrl,
   Connection,
   Keypair,
   sendAndConfirmTransaction,
@@ -16,22 +19,29 @@ import {
 } from '@solana/web3.js';
 
 // We establish a connection to the cluster
-const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
+// const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
+// const endPoint = JSON.parse(process.env.RPC? process.env.RPC : `https://api.devnet.solana.com/`)
+const endPoint = process.env.RPC? process.env.RPC : `https://api.devnet.solana.com/`;
+console.log('endPoint: ', endPoint)
+const connection = new Connection(endPoint, 'confirmed')
 
 // Next, we create and fund the payer account
 // const payer = Keypair.generate();
-const PAYER = [
-  151, 250, 133, 160, 178, 197, 133, 103, 69, 122, 236, 210, 204, 163, 134, 138, 41, 3, 125, 57, 8, 168, 214, 17, 218,
-  120, 180, 227, 245, 234, 75, 72, 10, 76, 127, 170, 65, 248, 245, 58, 114, 27, 168, 242, 66, 37, 79, 216, 141, 207,
-  121, 134, 27, 72, 177, 85, 105, 137, 186, 168, 39, 146, 175, 38,
-] //account11
-const payer = Keypair.fromSecretKey(
-  // new Uint8Array(JSON.parse(process.env.PAYER))
-  // Uint8Array.from(PAYER)
-  // new Uint8Array(JSON.parse(PAYER))
-  new Uint8Array(PAYER)
-)
-
+// const PAYER = [
+//   151, 250, 133, 160, 178, 197, 133, 103, 69, 122, 236, 210, 204, 163, 134, 138, 41, 3, 125, 57, 8, 168, 214, 17, 218,
+//   120, 180, 227, 245, 234, 75, 72, 10, 76, 127, 170, 65, 248, 245, 58, 114, 27, 168, 242, 66, 37, 79, 216, 141, 207,
+//   121, 134, 27, 72, 177, 85, 105, 137, 186, 168, 39, 146, 175, 38,
+// ] //account11
+// const payer = Keypair.fromSecretKey(
+//   // new Uint8Array(JSON.parse(process.env.PAYER))
+//   // Uint8Array.from(PAYER)
+//   // new Uint8Array(JSON.parse(PAYER))
+//   new Uint8Array(PAYER)
+// )
+// const PAYER = JSON.parse(process.env.PAYER? process.env.PAYER : `43EeRipwq7QZurfASn7CnYuJ14pVaCEv7KWav9vknt1bFR6qspYXC2DbaC2gGydrVx4TFtWfyCFkEaLLLMB2bZoT`)
+const PAYER = process.env.PAYER? process.env.PAYER : `43EeRipwq7QZurfASn7CnYuJ14pVaCEv7KWav9vknt1bFR6qspYXC2DbaC2gGydrVx4TFtWfyCFkEaLLLMB2bZoT` 
+const payer: Keypair = Keypair.fromSecretKey(Uint8Array.from(bs58.decode(PAYER)))
+console.log('payer: ', payer.publicKey)
 async function create() {
   console.log('Payer address:', payer.publicKey.toBase58())
   // await addKeypairToEnvFile(payer, 'PAYER');
@@ -52,8 +62,8 @@ async function create() {
   // const mintAuthority = Keypair.generate();
   // console.log('Mint Authority address:', mintAuthority.publicKey.toBase58());
   // await addKeypairToEnvFile(mintAuthority, 'MINT_AUTHORITY');
-  const mintAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
-
+  // const mintAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
+  const mintAuthority = payer;
   // mint account, tokens come from here
   const mintKeypair = Keypair.generate()
   console.log('Mint address:', mintKeypair.publicKey.toBase58())
@@ -67,8 +77,8 @@ async function create() {
   //   transferFeeConfigAuthority,
   //   'TRANSFER_FEE_CONFIG_AUTHORITY'
   // );
-  const transferFeeConfigAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
-
+  // const transferFeeConfigAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
+  const transferFeeConfigAuthority = payer;
   console.log('Transfer Fee Config Authority address:', transferFeeConfigAuthority.publicKey.toBase58())
 
   // authority that can move tokens withheld on the mint or token accounts
@@ -77,7 +87,8 @@ async function create() {
   //   withdrawWithheldAuthority,
   //   'WITHDRAW_WITHHELD_AUTHORITY'
   // );
-  const withdrawWithheldAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
+  // const withdrawWithheldAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
+  const withdrawWithheldAuthority = payer;
   console.log('Withdraw Withheld Authority address:', withdrawWithheldAuthority.publicKey.toBase58())
 
   const decimals = 9

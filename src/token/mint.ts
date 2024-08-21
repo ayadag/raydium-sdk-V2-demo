@@ -4,12 +4,13 @@ import {
   mintTo,
   TOKEN_2022_PROGRAM_ID,
 } from '@solana/spl-token';
+import { PublicKey } from '@solana/web3.js';
+
 import {
-  clusterApiUrl,
-  Connection,
-  Keypair,
-  PublicKey,
-} from '@solana/web3.js';
+  connection,
+  mint,
+  payer,
+} from './utils';
 
 // dotenv.config();
 
@@ -17,18 +18,18 @@ import {
 //   throw new Error('Necessary keypairs not found, have you run the create-token script?');
 // }
 
-const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
+// const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
 
 // const payer = Keypair.fromSecretKey(
 //   new Uint8Array(JSON.parse(process.env.PAYER))
 // );
 
-const PAYER = [
-  151, 250, 133, 160, 178, 197, 133, 103, 69, 122, 236, 210, 204, 163, 134, 138, 41, 3, 125, 57, 8, 168, 214, 17, 218,
-  120, 180, 227, 245, 234, 75, 72, 10, 76, 127, 170, 65, 248, 245, 58, 114, 27, 168, 242, 66, 37, 79, 216, 141, 207,
-  121, 134, 27, 72, 177, 85, 105, 137, 186, 168, 39, 146, 175, 38,
-] //account11
-const payer = Keypair.fromSecretKey(new Uint8Array(PAYER))
+// const PAYER = [
+//   151, 250, 133, 160, 178, 197, 133, 103, 69, 122, 236, 210, 204, 163, 134, 138, 41, 3, 125, 57, 8, 168, 214, 17, 218,
+//   120, 180, 227, 245, 234, 75, 72, 10, 76, 127, 170, 65, 248, 245, 58, 114, 27, 168, 242, 66, 37, 79, 216, 141, 207,
+//   121, 134, 27, 72, 177, 85, 105, 137, 186, 168, 39, 146, 175, 38,
+// ] //account11
+// const payer = Keypair.fromSecretKey(new Uint8Array(PAYER))
 
 // const mintAuthority = Keypair.fromSecretKey(
 //   new Uint8Array(JSON.parse(process.env.MINT_AUTHORITY))
@@ -51,15 +52,15 @@ const mintAuthority = payer
 //   ).publicKey;  //GwgFHj6641WeNqcut5oSqDA9FZHhriDMEWvj1kD9KUd1
 //or
 // const mint = new PublicKey('B5efLWadb34bgHdJw9UAaDEm7N4yZeEKT38JoBCWaT2E')
-const mint = Keypair.fromSecretKey(
-  new Uint8Array(
-    JSON.parse(
-      process.env.MINT_KEYPAIR
-        ? process.env.MINT_KEYPAIR
-        : '[234,121,7,101,187,143,179,126,95,172,60,101,68,82,41,165,134,201,136,23,206,182,105,96,25,237,181,107,167,194,82,32,229,66,86,216,72,198,57,30,255,55,190,171,208,75,35,121,88,20,114,79,10,137,8,145,197,145,69,70,160,147,185,217]',
-    ),
-  ),
-).publicKey
+// const mint = Keypair.fromSecretKey(
+//   new Uint8Array(
+//     JSON.parse(
+//       process.env.MINT_KEYPAIR
+//         ? process.env.MINT_KEYPAIR
+//         : '[234,121,7,101,187,143,179,126,95,172,60,101,68,82,41,165,134,201,136,23,206,182,105,96,25,237,181,107,167,194,82,32,229,66,86,216,72,198,57,30,255,55,190,171,208,75,35,121,88,20,114,79,10,137,8,145,197,145,69,70,160,147,185,217]',
+//     ),
+//   ),
+// ).publicKey
 
 async function mintF() {
   const balance = await connection.getBalance(payer.publicKey)
@@ -71,22 +72,23 @@ async function mintF() {
   // const owner = Keypair.generate();
   const owner = payer
 
-  //   const sourceAccount = await createAccount(
-  //     connection, // connection to use
-  //     payer, // payer of transaction and intialization fee
-  //     mint, // mint for the account
-  //     owner.publicKey, // owner of the new account
-  //     undefined, // optional keypair
-  //     undefined, // options for confirming transaction
-  //     TOKEN_2022_PROGRAM_ID // SPL token program id
-  //   )
+    // const sourceAccount = await createAccount(
+    //   connection, // connection to use
+    //   payer, // payer of transaction and intialization fee
+    //   mint, // mint for the account
+    //   owner.publicKey, // owner of the new account
+    //   undefined, // optional keypair
+    //   undefined, // options for confirming transaction
+    //   TOKEN_2022_PROGRAM_ID // SPL token program id
+    // )
   //or
   //   const sourceAccount = new PublicKey('2GyPtCr5UqKwQ7M4icyfKqQZfnTZDfaSSdy65ejwauSw') //Token-2022 Account
-  const sourceAccount = new PublicKey('9PDhVwWFmRTC6DSJWuTP3H3iBocGjUy4RiG2nJa6Nvfg') //Token-2022 Account//9PDhVwWFmRTC6DSJWuTP3H3iBocGjUy4RiG2nJa6Nvfg
-
+  // const sourceAccount = new PublicKey('9PDhVwWFmRTC6DSJWuTP3H3iBocGjUy4RiG2nJa6Nvfg') //Token-2022 Account//9PDhVwWFmRTC6DSJWuTP3H3iBocGjUy4RiG2nJa6Nvfg
+  const sourceAccount = new PublicKey('2TbW2jsqGA4pdjhNxLAV5Rw4f9PHU21phG5RHkC1eV98') //2TbW2jsqGA4pdjhNxLAV5Rw4f9PHU21phG5RHkC1eV98
+  
   // amount of tokens to mint to the new account
-  //   const mintAmount = BigInt(200_000_000_000_000_000) //200 milion
-  const mintAmount = BigInt(800_000_000_000_000_000) //800 milion
+    // const mintAmount = BigInt(200_000_000_000_000_000) //200 milion
+  const mintAmount = BigInt(300_000_000_000_000_000) //800 milion
 
   await mintTo(
     connection, // connection to use

@@ -20,6 +20,7 @@
     "@types/jsonfile": "^6.1.4",
     "bs58": "^5.0.0",
     "decimal.js": "^10.4.3",
+    "dotenv": "^16.4.5",
     "jsonfile": "^6.1.0",
     "node-cron": "^3.0.3",
     "ts-node": "^10.9.1",

@@ -3,28 +3,29 @@ import {
   setAuthority,
   TOKEN_2022_PROGRAM_ID,
 } from '@solana/spl-token';
+
 import {
-  clusterApiUrl,
-  Connection,
-  Keypair,
-} from '@solana/web3.js';
+  connection,
+  mint,
+  payer,
+} from './utils';
 
 // We establish a connection to the cluster
-const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
+// const connection = new Connection(clusterApiUrl('devnet'), 'confirmed')
 
 // Next, we create and fund the payer account
 // const payer = Keypair.generate();
-const PAYER = [
-  151, 250, 133, 160, 178, 197, 133, 103, 69, 122, 236, 210, 204, 163, 134, 138, 41, 3, 125, 57, 8, 168, 214, 17, 218,
-  120, 180, 227, 245, 234, 75, 72, 10, 76, 127, 170, 65, 248, 245, 58, 114, 27, 168, 242, 66, 37, 79, 216, 141, 207,
-  121, 134, 27, 72, 177, 85, 105, 137, 186, 168, 39, 146, 175, 38,
-] //account11
-const payer = Keypair.fromSecretKey(
-  // new Uint8Array(JSON.parse(process.env.PAYER))
-  // Uint8Array.from(PAYER)
-  // new Uint8Array(JSON.parse(PAYER))
-  new Uint8Array(PAYER)
-)
+// const PAYER = [
+//   151, 250, 133, 160, 178, 197, 133, 103, 69, 122, 236, 210, 204, 163, 134, 138, 41, 3, 125, 57, 8, 168, 214, 17, 218,
+//   120, 180, 227, 245, 234, 75, 72, 10, 76, 127, 170, 65, 248, 245, 58, 114, 27, 168, 242, 66, 37, 79, 216, 141, 207,
+//   121, 134, 27, 72, 177, 85, 105, 137, 186, 168, 39, 146, 175, 38,
+// ] //account11
+// const payer = Keypair.fromSecretKey(
+//   // new Uint8Array(JSON.parse(process.env.PAYER))
+//   // Uint8Array.from(PAYER)
+//   // new Uint8Array(JSON.parse(PAYER))
+//   new Uint8Array(PAYER)
+// )
 
 async function create() {
   console.log('Payer address:', payer.publicKey.toBase58())
@@ -46,18 +47,18 @@ async function create() {
   // const mintAuthority = Keypair.generate();
   // console.log('Mint Authority address:', mintAuthority.publicKey.toBase58());
   // await addKeypairToEnvFile(mintAuthority, 'MINT_AUTHORITY');
-  const mintAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
+  // const mintAuthority = Keypair.fromSecretKey(new Uint8Array(PAYER))
 
   // mint account, tokens come from here
-  const mintKeypair = Keypair.fromSecretKey(
-    new Uint8Array(
-      JSON.parse(
-        process.env.MINT_KEYPAIR
-          ? process.env.MINT_KEYPAIR
-          : '[234,121,7,101,187,143,179,126,95,172,60,101,68,82,41,165,134,201,136,23,206,182,105,96,25,237,181,107,167,194,82,32,229,66,86,216,72,198,57,30,255,55,190,171,208,75,35,121,88,20,114,79,10,137,8,145,197,145,69,70,160,147,185,217]',
-      ),
-    ),
-  )
+  // const mintKeypair = Keypair.fromSecretKey(
+  //   new Uint8Array(
+  //     JSON.parse(
+  //       process.env.MINT_KEYPAIR
+  //         ? process.env.MINT_KEYPAIR
+  //         : '[234,121,7,101,187,143,179,126,95,172,60,101,68,82,41,165,134,201,136,23,206,182,105,96,25,237,181,107,167,194,82,32,229,66,86,216,72,198,57,30,255,55,190,171,208,75,35,121,88,20,114,79,10,137,8,145,197,145,69,70,160,147,185,217]',
+  //     ),
+  //   ),
+  // )
 
   // authority that can modify the transfer fee
   // const transferFeeConfigAuthority = Keypair.generate();
@@ -142,7 +143,7 @@ async function create() {
   await setAuthority(
     connection,
     payer,
-    mintKeypair.publicKey,
+    mint,
     payer.publicKey,
     AuthorityType.MintTokens,
     null,
